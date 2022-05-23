@@ -3,6 +3,14 @@ type IUserLoginData = {
   password: IUserLoginType;
 };
 
+type TUser = {
+  id: number;
+  username: string;
+  password: string;
+  email: string;
+  created_at: string;
+};
+
 type TInputs =
   | "text"
   | "password"

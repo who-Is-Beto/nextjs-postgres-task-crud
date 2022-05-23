@@ -5,7 +5,6 @@ export default class UsersService {
   constructor() {}
 
   public async createUser(name: string, email: string, password: string) {
-    console.log(name, email, password);
     const hashedPassword = await hashPassword(password);
     const user = await connection.query(
       `
@@ -35,6 +34,30 @@ export default class UsersService {
       WHERE username = $1
     `,
       [name]
+    );
+
+    return user.rows[0];
+  }
+
+  public async getUserById(id: number) {
+    const user = await connection.query(
+      `
+      SELECT * FROM users
+      WHERE id = $1
+    `,
+      [id]
+    );
+
+    return user.rows[0];
+  }
+
+  public async getUserByEmail(email: string): Promise<TUser> {
+    const user = await connection.query(
+      `
+      SELECT * FROM users
+      WHERE email = $1
+    `,
+      [email]
     );
 
     return user.rows[0];

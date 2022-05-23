@@ -4,9 +4,14 @@ export default function authMiddleWare(req: NextApiRequest) {
   const { apikey } = req.headers;
   if (apikey === process.env.API_KEY) {
     return {
-      message: "Authenticated",
-      time: new Date().toISOString()
+      authenticated: true,
+      time: new Date().toISOString(),
+      message: "Authenticated"
     };
   }
-  return { message: "Invalid API key :c" };
+  return {
+    authenticated: false,
+    time: new Date().toISOString(),
+    message: "Invalid API key :c"
+  };
 }
