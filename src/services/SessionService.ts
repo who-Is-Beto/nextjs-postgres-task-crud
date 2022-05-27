@@ -1,5 +1,6 @@
 import verifyPassword from "@/auth/pass-verify";
 import authMiddleWare from "@/middlewares/auth.handler";
+import { serialize } from "cookie";
 import signToken from "@/token/token.sign";
 import { NextApiRequest, NextApiResponse } from "next";
 import UsersService from "./Users/UsersService";
@@ -23,7 +24,26 @@ class SessionService {
       if (!IsMatch) {
         return res.status(401).json({ message: "Invalid password" });
       }
-      return res.status(200).json({ message: message, token: signToken(req.body) });
+
+      const token = signToken({
+        user,
+        expirationTokenDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)
+      });
+
+      const serializeed = serialize("OutsideJWT", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV !== "development",
+        sameSite: "strict",
+        path: "/",
+        maxAge: 1000 * 60 * 60 * 24 * 30
+      });
+
+      return res
+        .setHeader("Set-Cookie", serializeed)
+        .status(200)
+        .json({
+          message: `${user.username} is ${message}!`
+        });
     } catch (error) {}
   }
 }

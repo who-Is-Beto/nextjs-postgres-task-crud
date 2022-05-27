@@ -27,6 +27,7 @@ type TInputs =
   | "week";
 
 type IUserLoginType = {
-  type: TInputs;
+  type?: TInputs;
   value: string;
+  placeholder?: string;
 };
