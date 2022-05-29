@@ -1,0 +1,22 @@
+.button {
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--darkGray);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  duration: 0.5s;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.button:hover {
+  transform: scale(1.05);
+}
+
+.button:active {
+  transform: scale(0.95);
+}
+
+.buttonPrimary {
+  background-color: var(--yellow);
+}

@@ -1,5 +1,5 @@
 import React from "react";
-
+import ButtonStyle from "./button.module.css";
 type TPropsButton = {
   label: string;
   onClIick: () => void;
@@ -8,7 +8,9 @@ type TPropsButton = {
 const Button: React.FC<TPropsButton> = ({ label, onClIick }): JSX.Element => {
   return (
     <>
-      <button onClick={onClIick}>{label}</button>
+      <button className={`${ButtonStyle.button} ${ButtonStyle.buttonPrimary}`} onClick={onClIick}>
+        {label}
+      </button>
     </>
   );
 };
