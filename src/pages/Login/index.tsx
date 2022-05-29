@@ -2,11 +2,13 @@ import Button from "@/components/Button/Button";
 import Form from "@/components/Form/Form";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Styles from "./login.module.css";
-import fetch from "isomorphic-unfetch";
+import { useLoginUserMutation } from "@/store/services/UsersService";
+import { setToken } from "@/store/services/slice/appSlice";
 
 const Login: React.FC = (): JSX.Element => {
+  const [loginUser, { error, data }] = useLoginUserMutation();
   const [userData, setUserData] = useState<IUserLoginData>({
     email: {
       value: "",
@@ -32,15 +34,18 @@ const Login: React.FC = (): JSX.Element => {
     });
   };
 
-  const handleSubmit = (): void => {
-    Object.values(userData).forEach((value) => {
-      delete value.type;
-      delete value.placeholder;
+  const handleSubmit = async (): Promise<void> => {
+    await loginUser({
+      email: userData.email.value,
+      password: userData.password.value
     });
+
+    setToken(data?.token as string);
   };
 
   return (
     <div className={Styles.login}>
+      {error && <h1>ERRORR</h1>}
       <Form data={userData} handleChange={handleChange} />
       <small>
         Don't you have account? <Link href={"/Signin"}>Sign in</Link>
