@@ -43,7 +43,7 @@ type TDataResponseLoginSuccess = {
   message: string;
   success: boolean;
   userName: string;
-  token?: string;
+  jwt?: true;
 };
 
 type TDataResponseLoginError = {
@@ -51,7 +51,7 @@ type TDataResponseLoginError = {
 };
 
 interface IStore {
-  token: string;
+  darkMode: boolean;
 }
 
 type TRouteNames = "/" | "/Login" | "/Signin" | "/Logout" | "/Tasks/[user]";
@@ -60,6 +60,7 @@ interface IRouteProperties {
   protect: boolean;
   name: string;
   path: TRouteNames;
+  accessWithToken?: boolean;
 }
 
 type TRoutes = {

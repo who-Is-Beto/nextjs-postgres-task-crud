@@ -1,5 +1,6 @@
 import hashPassword from "@/auth/pass-hash";
 import { connection } from "@/database";
+import { TUser } from "shimps";
 
 export default class UsersService {
   constructor() {}
