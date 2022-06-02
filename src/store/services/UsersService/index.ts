@@ -1,3 +1,4 @@
+import { TDataResponseLoginSuccess, TDataSendLogin } from "shimps";
 import { rootServices } from "../rootService";
 
 const usersService = rootServices.injectEndpoints({

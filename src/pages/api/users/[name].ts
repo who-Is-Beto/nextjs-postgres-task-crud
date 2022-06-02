@@ -5,8 +5,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const {
     query: { name }
   } = req;
-
-  console.log(`name: ${name}`);
   const usersService = new UsersService();
   const user = await usersService.getUserByName(name as string);
 

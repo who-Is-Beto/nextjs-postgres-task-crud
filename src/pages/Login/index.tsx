@@ -2,10 +2,10 @@ import Button from "@/components/Button/Button";
 import Form from "@/components/Form/Form";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Styles from "./login.module.css";
 import { useLoginUserMutation } from "@/store/services/UsersService";
-import { setToken } from "@/store/services/slice/appSlice";
+import { IUserLoginData, TInputs } from "shimps";
 
 const Login: React.FC = (): JSX.Element => {
   const [loginUser, { error, data }] = useLoginUserMutation();
@@ -39,9 +39,13 @@ const Login: React.FC = (): JSX.Element => {
       email: userData.email.value,
       password: userData.password.value
     });
-
-    setToken(data?.token as string);
   };
+
+  useEffect((): void => {
+    if (data?.jwt) {
+      router.push(`/Tasks/${data.userName}`);
+    }
+  }, [error, data]);
 
   return (
     <div className={Styles.login}>

@@ -1,18 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IStore } from "shimps";
 
 const initialState: IStore = {
-  token: ""
+  darkMode: false
 };
 
 const appSlice = createSlice({
   name: "app",
   initialState,
-  reducers: {
-    setToken: (state: IStore, action: PayloadAction<string>) => {
-      state.token = action.payload;
-    }
-  }
+  reducers: {}
 });
 
-export const { setToken } = appSlice.actions;
 export default appSlice.reducer;

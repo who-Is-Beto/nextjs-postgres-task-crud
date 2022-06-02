@@ -4,27 +4,31 @@ const routes: TRoutes = {
   "/": {
     protect: false,
     name: "Home",
-    path: "/"
+    path: "/",
+    accessWithToken: false
   },
   "/Login": {
     protect: false,
     name: "Login",
-    path: "/login"
+    path: "/login",
+    accessWithToken: false
   },
   "/Signin": {
     protect: false,
     name: "Signin",
-    path: "/signin"
+    path: "/signin",
+    accessWithToken: false
   },
   "/Logout": {
-    protect: false,
+    protect: true,
     name: "Logout",
     path: "/logout"
   },
   "/Tasks/[user]": {
     protect: true,
     name: "Tasks",
-    path: "/tasks"
+    path: "/tasks",
+    accessWithToken: true
   }
 };
 
