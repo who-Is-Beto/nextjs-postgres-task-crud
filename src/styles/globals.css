@@ -1,21 +1,68 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap");
 
 :root {
-  --yellow: #f9ab46;
-  --darkGray: #4c696d;
-  --lightGray: #bdd1d0;
-  --red: #cc1f21;
-  --black: #131514;
+  --darkPurple: #493657;
+  --lightPurple: #8c5a7e;
+  --pink: #ce7da5;
+  --lightGreen: #bee5bf;
+  --tealBlue: #dff3e3;
+  --lightOrange: #ffd1ba;
+  --shadow: 0 0.5rem 1.6rem rgba(0, 0, 0, 0.2);
+  --inputShadow: 0px 2px 5px 1px var(--pink);
+  --danger: #d84343;
+  --pageMinHeight: calc(100vh - 8rem);
 }
 
 * {
   font-family: "Plus Jakarta Sans", sans-serif;
+  -webkit-tap-highlight-color: transparent;
   margin: 0;
-  color: var(--black);
+  color: var(--tealBlue);
   padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  background: var(--lightGray);
+  min-height: 100vh;
+  background: var(--darkPurple);
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pageContainer {
+  width: 90%;
+  min-height: calc(100vh - 6rem);
+  background-color: var(--lightPurple);
+  margin: 1rem auto;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.pageTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--lightGreen);
+  margin-bottom: 1rem;
+}
+
+.textRight {
+  text-align: right;
+}
+
+.alignRight {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  align-self: flex-end;
+}
+
+.upsideDown {
+  transform: rotate(-180deg);
 }

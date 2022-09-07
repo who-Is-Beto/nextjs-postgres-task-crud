@@ -1,16 +1,37 @@
+import Link from "next/link";
 import React from "react";
+import { TButtons } from "shimps";
 import ButtonStyle from "./button.module.css";
 type TPropsButton = {
-  label: string;
-  onClIick: () => void;
+  onClIick?: () => void;
+  type: TButtons;
+  outlined?: boolean;
+  children?: React.ReactNode;
+  href?: string;
 };
 
-const Button: React.FC<TPropsButton> = ({ label, onClIick }): JSX.Element => {
+const Button: React.FC<TPropsButton> = ({
+  href,
+  onClIick,
+  children,
+  type,
+  outlined = false
+}): JSX.Element => {
+  const buttonType = outlined ? type + "Outlined" : type;
+  const buttonClass = `${ButtonStyle.button} ${ButtonStyle[buttonType]}`;
   return (
     <>
-      <button className={`${ButtonStyle.button} ${ButtonStyle.buttonPrimary}`} onClick={onClIick}>
-        {label}
-      </button>
+      {href ? (
+        <Link href={href}>
+          <button className={`${buttonClass}`} onClick={onClIick}>
+            {children}
+          </button>
+        </Link>
+      ) : (
+        <button className={`${buttonClass}`} onClick={onClIick}>
+          {children}
+        </button>
+      )}
     </>
   );
 };

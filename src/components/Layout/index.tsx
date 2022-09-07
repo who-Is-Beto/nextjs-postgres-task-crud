@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import { IRouteProperties, IStore, TRoutes } from "shimps";
+import { IRouteProperties } from "shimps";
 import routes from "@/auth/routes";
 import doesHttpOnlyCookieExist from "@/helpers/checkCookie";
 
@@ -17,7 +17,7 @@ const Layout: React.FC<{ children: any }> = ({ children }): JSX.Element => {
       router.push("/");
       return;
     }
-  }, [router.pathname]);
+  }, [router.pathname, router]);
   return <>{children}</>;
 };
 

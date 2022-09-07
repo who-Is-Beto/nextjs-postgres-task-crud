@@ -1,0 +1,10 @@
+.settingsContainer {
+  height: var(--pageMinHeight);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.settingTitle {
+  margin-bottom: 4rem;
+}

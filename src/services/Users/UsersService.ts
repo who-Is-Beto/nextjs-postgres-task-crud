@@ -1,66 +1,102 @@
 import hashPassword from "@/auth/pass-hash";
-import { connection } from "@/database";
-import { TUser } from "shimps";
+import { prisma } from "@/config";
 
 export default class UsersService {
   constructor() {}
 
   public async createUser(name: string, email: string, password: string) {
-    const hashedPassword = await hashPassword(password);
-    const user = await connection.query(
-      `
-      INSERT INTO users (username, email, password)
-      VALUES ($1, $2, $3)
-      RETURNING *
-    `,
-      [name, email, hashedPassword]
-    );
+    return prisma.user.create({
+      data: {
+        username: name,
+        email,
+        password: await hashPassword(password)
+      },
+      select: {
+        username: true,
+        email: true,
+        password: false
+      }
+    });
+  }
 
-    delete user.rows[0].password;
-    return user.rows[0];
+  public async updateUser(id: number, name: string, email: string) {
+    return prisma.user.update({
+      where: {
+        id
+      },
+      data: {
+        username: name,
+        email
+      }
+    });
+  }
+
+  public async deleteUser(id: number) {
+    return prisma.user.delete({
+      where: {
+        id
+      }
+    });
   }
 
   public async getUsers() {
-    const users = await connection.query(`
-      SELECT * FROM users
-    `);
-
-    return users.rows;
+    return prisma.user.findMany({
+      select: {
+        username: true,
+        email: true,
+        password: false,
+        id: true,
+        created_at: true,
+        tasks: true
+      }
+    });
   }
 
   public async getUserByName(name: string) {
-    const user = await connection.query(
-      `
-      SELECT * FROM users
-      WHERE username = $1
-    `,
-      [name]
-    );
-
-    return user.rows[0];
+    return await prisma.user.findUnique({
+      where: {
+        username: name
+      },
+      select: {
+        username: true,
+        email: true,
+        password: false,
+        id: true,
+        created_at: true,
+        tasks: true
+      }
+    });
   }
 
   public async getUserById(id: number) {
-    const user = await connection.query(
-      `
-      SELECT * FROM users
-      WHERE id = $1
-    `,
-      [id]
-    );
-
-    return user.rows[0];
+    return prisma.user.findUnique({
+      where: {
+        id
+      },
+      select: {
+        username: true,
+        email: true,
+        password: false,
+        id: true,
+        created_at: true,
+        tasks: true
+      }
+    });
   }
 
-  public async getUserByEmail(email: string): Promise<TUser> {
-    const user = await connection.query(
-      `
-      SELECT * FROM users
-      WHERE email = $1
-    `,
-      [email]
-    );
-
-    return user.rows[0];
+  public async getUserByEmail(email: string) {
+    return prisma.user.findUnique({
+      where: {
+        email
+      },
+      select: {
+        username: true,
+        email: true,
+        password: true,
+        id: true,
+        created_at: true,
+        tasks: true
+      }
+    });
   }
 }

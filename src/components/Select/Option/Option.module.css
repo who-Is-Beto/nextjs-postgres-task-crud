@@ -1,0 +1,7 @@
+.option {
+  font-weight: bold;
+  text-transform: capitalize;
+  color: var(--lightGreen);
+  cursor: pointer;
+  text-align: left;
+}

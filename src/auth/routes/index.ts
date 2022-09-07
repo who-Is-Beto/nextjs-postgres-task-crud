@@ -22,7 +22,14 @@ const routes: TRoutes = {
   "/Logout": {
     protect: true,
     name: "Logout",
-    path: "/logout"
+    path: "/logout",
+    accessWithToken: true
+  },
+  "/Settings": {
+    protect: true,
+    name: "Settings",
+    path: "/Settings",
+    accessWithToken: true
   },
   "/Tasks/[user]": {
     protect: true,

@@ -9,6 +9,7 @@ type TUser = {
   id: number;
   username: string;
   password: string;
+  tasks: ITask[];
   email: string;
   created_at: string;
 };
@@ -50,8 +51,19 @@ type TDataResponseLoginError = {
   error: { data: TDataResponseLoginSuccess; status: number };
 };
 
-interface IStore {
+type TLenguages = "spanish" | "english";
+
+interface IUserConfig {
+  lenguage: IAviableLenguages;
   darkMode: boolean;
+}
+
+interface IStore {
+  config: IUserConfig;
+}
+
+interface IAviableLenguages {
+  [key: string]: boolean;
 }
 
 type TRouteNames = "/" | "/Login" | "/Signin" | "/Logout" | "/Tasks/[user]";
@@ -66,3 +78,24 @@ interface IRouteProperties {
 type TRoutes = {
   [key: TRouteNames]: IRouteProperties;
 };
+
+type TTask = {
+  id: number;
+  title: string;
+  description: string;
+  completed: boolean;
+  userId: number;
+  updated_at: string;
+  created_at: string;
+  owner: TUser;
+};
+
+type TButtons =
+  | "primary"
+  | "secondary"
+  | "success"
+  | "danger"
+  | "warning"
+  | "info"
+  | "light"
+  | "dark";

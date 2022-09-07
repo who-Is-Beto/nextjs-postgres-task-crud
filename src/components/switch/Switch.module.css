@@ -1,0 +1,39 @@
+.checkbox {
+  display: none;
+}
+
+.checkbox:checked ~ .switch {
+  background-color: var(--lightGreen);
+}
+
+.checkbox:checked ~ .switch::before {
+  transform: translateX(2rem);
+}
+
+.switch {
+  height: 2em;
+  width: 4em;
+  border-radius: 3rem;
+  background: var(--darkPurple);
+  position: relative;
+  z-index: 1;
+  box-size: border-box;
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+
+.switch::before {
+  content: "";
+  position: relative;
+  top: 0.4em;
+  z-index: 2;
+  left: 0.5em;
+  will-change: transform;
+  display: block;
+  width: 1.2em;
+  height: 1.2em;
+  border-radius: 50%;
+  background-color: white;
+  margin: 0;
+  transition-duration: 0.3s;
+}

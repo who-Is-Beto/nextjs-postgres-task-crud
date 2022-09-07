@@ -1,4 +1,5 @@
 import React from "react";
+import { IUserLoginType, TInputs } from "shimps";
 import Input from "../Input";
 
 type IFormProps = {

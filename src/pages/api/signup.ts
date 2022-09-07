@@ -4,12 +4,12 @@ import authMiddleWare from "../../middlewares/auth.handler";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const usersService = new UsersService();
-  const { message } = authMiddleWare(req);
-  if (req.method === "POST" && message === "Authenticated") {
+  const { authenticated } = authMiddleWare(req);
+  if (req.method === "POST" && authenticated) {
     const { username, email, password } = req.body;
     try {
       const user = await usersService.createUser(username, email, password);
-      return await res.status(200).json({ message: user });
+      return await res.status(201).json({ message: user });
     } catch (error) {
       return await res.status(500).json({ message: error });
     }

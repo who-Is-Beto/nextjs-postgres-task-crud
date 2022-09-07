@@ -1,5 +1,4 @@
 import verifyPassword from "@/auth/pass-verify";
-import authMiddleWare from "@/middlewares/auth.handler";
 import { serialize } from "cookie";
 import signToken from "@/token/token.sign";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -8,12 +7,26 @@ import UsersService from "./Users/UsersService";
 class SessionService {
   constructor() {}
 
+  public async logout(_: NextApiRequest, res: NextApiResponse) {
+    try {
+      const serializeed = serialize("OutsideJWT", "", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV !== "development",
+        sameSite: "strict",
+        path: "/",
+        maxAge: 0
+      });
+      return res
+        .setHeader("Set-Cookie", serializeed)
+        .status(200)
+        .json({ message: "Logout success", success: true });
+    } catch (error) {
+      return res.status(500).json({ message: "Something went wrong :c", success: false });
+    }
+  }
+
   public async createSession(req: NextApiRequest, res: NextApiResponse) {
     try {
-      const { authenticated, message } = await authMiddleWare(req);
-      if (!authenticated) {
-        return res.status(406).json({ message });
-      }
       const usersService = new UsersService();
       const { email, password } = req.body;
       const user = await usersService.getUserByEmail(email);
@@ -42,7 +55,7 @@ class SessionService {
         .setHeader("Set-Cookie", serializeed)
         .status(200)
         .json({
-          message: `${user.username} is ${message}!`,
+          message: `${user.username} is Authenticated!`,
           success: true,
           userName: user.username,
           jwt: serializeed
