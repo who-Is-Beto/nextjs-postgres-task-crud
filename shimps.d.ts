@@ -35,16 +35,20 @@ type IUserLoginType = {
   placeholder?: string;
 };
 
-type TDataSendLogin = {
+interface TDataSendLogin {
   email: string;
   password: string;
-};
+}
+
+interface TDataSendRegister extends TDataSendLogin {
+  username: string;
+}
 
 type TDataResponseLoginSuccess = {
   message: string;
   success: boolean;
   userName: string;
-  jwt?: true;
+  jwt?: string;
 };
 
 type TDataResponseLoginError = {
@@ -53,6 +57,10 @@ type TDataResponseLoginError = {
 
 type TLenguages = "spanish" | "english";
 
+interface IAuth {
+  token: boolean;
+}
+
 interface IUserConfig {
   lenguage: IAviableLenguages;
   darkMode: boolean;
@@ -60,6 +68,7 @@ interface IUserConfig {
 
 interface IStore {
   config: IUserConfig;
+  auth: IAuth;
 }
 
 interface IAviableLenguages {

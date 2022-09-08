@@ -3,6 +3,8 @@ import { serialize } from "cookie";
 import signToken from "@/token/token.sign";
 import { NextApiRequest, NextApiResponse } from "next";
 import UsersService from "./Users/UsersService";
+import { IncomingMessage } from "http";
+import { NextApiRequestCookies } from "next/dist/server/api-utils";
 
 class SessionService {
   constructor() {}

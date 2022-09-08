@@ -1,6 +1,7 @@
 import React from "react";
 import UnAuthStyle from "./UnAuthenticated.module.css";
 import Button from "../../components/Button/Button";
+import GirlPhone from "../../assets/images/girl_phone.svg";
 
 const UnAuthenticated: React.FC = () => {
   return (
@@ -21,6 +22,8 @@ const UnAuthenticated: React.FC = () => {
           Do you want to prove <strong className={UnAuthStyle.unAuthiTask}>iTask</strong> for free?
         </p>
       </div>
+
+      <GirlPhone />
 
       <div className={UnAuthStyle.unAuthButtons}>
         <Button type="dark" href="/Login">

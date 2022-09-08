@@ -1,12 +1,13 @@
+import React, { useState } from "react";
 import Button from "@/components/Button/Button";
 import Form from "@/components/Form/Form";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
 import Styles from "./login.module.css";
 import { useLoginUserMutation } from "@/store/services/UsersService";
 import { IUserLoginData, TInputs } from "shimps";
 import { RiLoginBoxFill } from "react-icons/ri";
+import { GetServerSidePropsContext } from "next";
+import { userFromRequest } from "@/web/tokens";
 
 const Login: React.FC = (): JSX.Element => {
   const [loginUser, { error, data }] = useLoginUserMutation();
@@ -22,8 +23,6 @@ const Login: React.FC = (): JSX.Element => {
       placeholder: "password"
     }
   });
-
-  const router = useRouter();
 
   const handleChange = (key: TInputs, e: React.FormEvent<HTMLInputElement>): void => {
     setUserData({
@@ -42,18 +41,12 @@ const Login: React.FC = (): JSX.Element => {
     });
   };
 
-  useEffect((): void => {
-    if (data?.jwt) {
-      router.push(`/Tasks/${data.userName}`);
-    }
-  }, [error, data]);
-
   return (
     <div className={Styles.login}>
       {error && <h1>ERRORR</h1>}
       <Form data={userData} handleChange={handleChange} />
       <small>
-        Don't you have account?{" "}
+        Don{"&apos"}t you have account?{" "}
         <Link href={"/Signin"}>
           <a className={Styles.signinLink}>Sign in</a>
         </Link>
@@ -65,5 +58,20 @@ const Login: React.FC = (): JSX.Element => {
     </div>
   );
 };
+
+export async function getServerSideProps(constext: GetServerSidePropsContext) {
+  const user = await userFromRequest(constext.req);
+  if (user) {
+    return {
+      redirect: {
+        destination: `/Tasks/${user.username}`,
+        permanent: false
+      }
+    };
+  }
+  return {
+    props: {}
+  };
+}
 
 export default Login;

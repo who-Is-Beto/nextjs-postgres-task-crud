@@ -1,5 +1,8 @@
 import { TRoutes } from "shimps";
 
+export const UnAuthRoutes: TRoutes[] = ["/Login", "/Signin"];
+export const AuthRoutes: TRoutes[] = ["/Logout", "/Tasks/[user]", "/Settings"];
+
 const routes: TRoutes = {
   "/": {
     protect: false,
