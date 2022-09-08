@@ -1,4 +1,5 @@
 import React from "react";
+import { TInputs } from "shimps";
 import InputStles from "./input.module.css";
 
 const Input: React.FC<{

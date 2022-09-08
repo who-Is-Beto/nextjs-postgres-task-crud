@@ -1,0 +1,15 @@
+.options {
+  display: flex;
+  width: 100%;
+  padding: 0 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.optionsIcon {
+  transition-duration: 0.2s;
+}
+
+.optionsIcon:active {
+  transform: translateY(-2rem) scale(2);
+}

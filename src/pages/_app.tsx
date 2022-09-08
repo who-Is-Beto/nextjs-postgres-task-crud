@@ -4,12 +4,17 @@ import "../styles/globals.css";
 import { Provider } from "react-redux";
 import { store } from "../store";
 import Layout from "@/components/Layout";
+import Navbar from "@/components/Navbar";
+import "animate.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <Layout>
-        <Component {...pageProps} />;
+        <Navbar />
+        <div className="pageContainer">
+          <Component {...pageProps} />
+        </div>
       </Layout>
     </Provider>
   );

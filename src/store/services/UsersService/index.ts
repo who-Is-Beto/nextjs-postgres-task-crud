@@ -16,8 +16,18 @@ const usersService = rootServices.injectEndpoints({
           password
         }
       })
+    }),
+    logoutUser: builder.mutation<TDataResponseLoginSuccess, void>({
+      query: () => ({
+        url: "/api/logout",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: "admin123"
+        }
+      })
     })
   })
 });
 
-export const { useLoginUserMutation } = usersService;
+export const { useLoginUserMutation, useLogoutUserMutation } = usersService;

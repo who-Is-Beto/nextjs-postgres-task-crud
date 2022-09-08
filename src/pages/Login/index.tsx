@@ -6,13 +6,14 @@ import React, { useEffect, useState } from "react";
 import Styles from "./login.module.css";
 import { useLoginUserMutation } from "@/store/services/UsersService";
 import { IUserLoginData, TInputs } from "shimps";
+import { RiLoginBoxFill } from "react-icons/ri";
 
 const Login: React.FC = (): JSX.Element => {
   const [loginUser, { error, data }] = useLoginUserMutation();
   const [userData, setUserData] = useState<IUserLoginData>({
     email: {
       value: "",
-      type: "text",
+      type: "email",
       placeholder: "whoyouare@gmail.com"
     },
     password: {
@@ -52,9 +53,15 @@ const Login: React.FC = (): JSX.Element => {
       {error && <h1>ERRORR</h1>}
       <Form data={userData} handleChange={handleChange} />
       <small>
-        Don't you have account? <Link href={"/Signin"}>Sign in</Link>
+        Don't you have account?{" "}
+        <Link href={"/Signin"}>
+          <a className={Styles.signinLink}>Sign in</a>
+        </Link>
+        !
       </small>
-      <Button onClIick={handleSubmit} label="Login" />
+      <Button type="primary" onClIick={handleSubmit}>
+        Login <RiLoginBoxFill />
+      </Button>
     </div>
   );
 };

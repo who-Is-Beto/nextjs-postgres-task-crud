@@ -1,0 +1,53 @@
+.select {
+  transition-duration: 0.3s;
+  padding: 0.5rem 0.7rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  border: none;
+  position: relative;
+  box-shadow: var(--shadow);
+  background-color: var(--darkPurple);
+  width: 10rem;
+  transform-origin: bottom left;
+}
+
+.downIcon {
+  transition-duration: 0.3s;
+}
+
+.select:hover {
+  box-shadow: var(--inputShadow);
+}
+
+.selectSpan {
+  text-transform: capitalize;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--lightGreen);
+  font-weight: bold;
+}
+
+.selectViewport {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  z-index: 2;
+}
+
+.selectContainer {
+  width: inherit;
+  top: 2.5rem;
+  left: 0;
+  z-index: 3;
+  gap: 1rem;
+  padding: 1rem;
+  position: absolute;
+  background-color: var(--darkPurple);
+  position: absolute;
+  display: grid;
+  border-radius: 0.5rem;
+}

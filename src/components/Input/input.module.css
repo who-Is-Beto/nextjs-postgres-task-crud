@@ -1,15 +1,25 @@
 .input {
+  background-color: var(--tealBlue);
+  color: var(--darkPurple);
+  font-weight: 700;
   min-width: 14rem;
   max-width: 24rem;
-  padding: 0.5rem;
-  border: 2px solid var(--darkGray);
+  padding: 0.8rem 1rem;
+  border: none;
   outline: none;
+  box-shadow: var(--shadow);
   border-radius: 0.5rem;
+  transition-duration: 0.3s;
+}
+
+.input:focus {
+  box-shadow: var(--inputShadow);
 }
 
 .label {
+  gap: 0.5rem;
   display: flex;
   text-transform: capitalize;
-  font-weight: 500;
+  font-weight: 700;
   flex-direction: column;
 }

@@ -1,10 +1,15 @@
 .button {
   padding: 0.5rem 1rem;
-  border: 2px solid var(--darkGray);
+  border: 2px solid trnsparent;
   border-radius: 0.5rem;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: var(--shadow);
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  duration: 0.5s;
+  transition-duration: 0.3s;
   font-weight: 600;
   font-size: 1rem;
 }
@@ -17,6 +22,21 @@
   transform: scale(0.95);
 }
 
-.buttonPrimary {
-  background-color: var(--yellow);
+.primary {
+  background-color: var(--pink);
+}
+
+.secondary {
+  background-color: var(--tealBlue);
+  color: var(--darkPurple);
+  border: 1px solid var(--darkPurple);
+}
+
+.danger {
+  background-color: var(--danger);
+}
+
+.dark {
+  background-color: var(--darkPurple);
+  border: 1px solid var(--darkPurple);
 }

@@ -1,0 +1,11 @@
+.settingOptionContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  text-transform: capitalize;
+}
+
+.optionLabel {
+  font-weight: bold;
+}

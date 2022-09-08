@@ -1,3 +1,4 @@
+import TasksService from "@/services/Tasks/TasksService";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default function tasks(request: NextApiRequest, response: NextApiResponse) {
@@ -5,9 +6,11 @@ export default function tasks(request: NextApiRequest, response: NextApiResponse
 
   switch (method) {
     case "GET":
-      return response.status(200).json("getting tasks");
+      const tasks = TasksService.getTasks();
+      return response.status(200).json({ tasks });
     case "POST":
-      return response.status(201).json("creating new task");
+      const task = TasksService.createTask(request.body);
+      return response.status(201).json({ task });
     default:
       return response.status(401).json({
         error: "Invalid method"
