@@ -5,7 +5,7 @@ const usersService = rootServices.injectEndpoints({
   endpoints: (builder) => ({
     loginUser: builder.mutation<TDataResponseLoginSuccess, TDataSendLogin>({
       query: ({ email, password }) => ({
-        url: "/api/login",
+        url: "/api/sessions",
         method: "POST",
         headers: {
           "Content-Type": "application/json",

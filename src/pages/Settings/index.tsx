@@ -17,6 +17,7 @@ const Settings: React.FC = (): JSX.Element => {
   const handleLogout = (): void => {
     logoutUser();
     router.push("/");
+    router.reload();
   };
 
   const handleChangeTheme = (): void => {

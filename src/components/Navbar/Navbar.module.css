@@ -1,10 +1,6 @@
 .navbarHeader {
-  width: 90%;
-  position: fixed;
-  height: 3rem;
-  top: calc(100vh - 3rem - 0.8rem);
-  left: 5%;
-  z-index: 5;
+  width: 100%;
+  grid-area: header;
   border-radius: 0.5rem;
   background-color: var(--lightPurple);
   box-shadow: var(--shadow);

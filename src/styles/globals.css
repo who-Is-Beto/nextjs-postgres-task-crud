@@ -32,13 +32,21 @@ a {
   cursor: pointer;
 }
 
-.pageContainer {
-  width: 90%;
-  min-height: calc(100vh - 6rem);
-  background-color: var(--lightPurple);
-  margin: 1rem auto;
-  border-radius: 0.5rem;
+.layout {
+  display: grid;
+  grid-template-rows: calc(100vh - 6rem) 3rem;
+  gap: 1rem;
   padding: 1rem;
+  grid-template-areas:
+    "content content content"
+    "header header header";
+}
+
+.pageContainer {
+  grid-area: content;
+  min-height: var(--pageMinHeight);
+  background-color: var(--lightPurple);
+  border-radius: 0.5rem;
 }
 
 .w-100 {

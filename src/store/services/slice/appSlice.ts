@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IStore, TLenguages } from "shimps";
+import { IAuth, IStore, TLenguages } from "shimps";
 
 const initialState: IStore = {
   config: {
@@ -9,6 +9,9 @@ const initialState: IStore = {
       french: false
     },
     darkMode: true
+  },
+  auth: {
+    token: false
   }
 };
 
@@ -24,10 +27,13 @@ const appSlice = createSlice({
     },
     setDarkMode: (state, action: PayloadAction<boolean>) => {
       state.config.darkMode = action.payload;
+    },
+    setAuth: (state, action: PayloadAction<IAuth>) => {
+      state.auth = action.payload;
     }
   }
 });
 
-export const { setDarkMode, setLenguage } = appSlice.actions;
+export const { setDarkMode, setLenguage, setAuth } = appSlice.actions;
 
 export default appSlice.reducer;
