@@ -6,7 +6,7 @@
   border: none;
   position: relative;
   box-shadow: var(--shadow);
-  background-color: var(--darkPurple);
+  background-color: var(--darkPrimary);
   width: 10rem;
   transform-origin: bottom left;
 }
@@ -46,7 +46,7 @@
   gap: 1rem;
   padding: 1rem;
   position: absolute;
-  background-color: var(--darkPurple);
+  background-color: var(--darkPrimary);
   position: absolute;
   display: grid;
   border-radius: 0.5rem;

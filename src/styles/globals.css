@@ -1,15 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap");
 
 :root {
-  --darkPurple: #493657;
-  --lightPurple: #8c5a7e;
-  --pink: #ce7da5;
+  --darkPrimary: #222831;
+
+  --lightPrimary: #98c1d9;
+  --lightSecondary: #3c415c;
+  --lightTerciary: #30475e;
+
   --lightGreen: #bee5bf;
-  --tealBlue: #dff3e3;
+  --tealBlue: #e8f0fe;
   --lightOrange: #ffd1ba;
+
+  --danger: #ff8dac;
+
   --shadow: 0 0.5rem 1.6rem rgba(0, 0, 0, 0.2);
-  --inputShadow: 0px 2px 5px 1px var(--pink);
-  --danger: #d84343;
+  --inputShadow: 0px 2px 5px 1px var(--lightTerciary);
   --pageMinHeight: calc(100vh - 8rem);
 }
 
@@ -22,9 +27,13 @@
   box-sizing: border-box;
 }
 
+svg {
+  color: transparent;
+}
+
 body {
   min-height: 100vh;
-  background: var(--darkPurple);
+  background: var(--darkPrimary);
 }
 
 a {
@@ -45,7 +54,7 @@ a {
 .pageContainer {
   grid-area: content;
   min-height: var(--pageMinHeight);
-  background-color: var(--lightPurple);
+  background-color: var(--lightSecondary);
   border-radius: 0.5rem;
 }
 

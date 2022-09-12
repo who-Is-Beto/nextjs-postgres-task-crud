@@ -3,7 +3,7 @@ import React from "react";
 import { TButtons } from "shimps";
 import ButtonStyle from "./button.module.css";
 type TPropsButton = {
-  onClIick?: () => void;
+  onClIick?: (event: React.SyntheticEvent) => void;
   type: TButtons;
   outlined?: boolean;
   children?: React.ReactNode;

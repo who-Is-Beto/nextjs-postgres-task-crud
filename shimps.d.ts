@@ -1,3 +1,4 @@
+import { User } from "@prisma/client";
 import { Interface } from "readline";
 
 type IUserLoginData = {
@@ -30,9 +31,9 @@ type TInputs =
   | "week";
 
 type IUserLoginType = {
-  type?: TInputs;
-  value: string;
-  placeholder?: string;
+  type: TInputs;
+  name: string;
+  placeholder: string;
 };
 
 interface TDataSendLogin {
@@ -44,12 +45,13 @@ interface TDataSendRegister extends TDataSendLogin {
   username: string;
 }
 
-type TDataResponseLoginSuccess = {
+interface DataResponseMessage {
   message: string;
-  success: boolean;
-  userName: string;
-  jwt?: string;
-};
+}
+
+interface DataResponseSuccess extends DataResponseMessage {
+  user: User;
+}
 
 type TDataResponseLoginError = {
   error: { data: TDataResponseLoginSuccess; status: number };

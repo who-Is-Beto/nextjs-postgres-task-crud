@@ -1,60 +1,60 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Button from "@/components/Button/Button";
 import Form from "@/components/Form/Form";
 import Link from "next/link";
 import Styles from "./login.module.css";
 import { useLoginUserMutation } from "@/store/services/UsersService";
-import { IUserLoginData, TInputs } from "shimps";
 import { RiLoginBoxFill } from "react-icons/ri";
-import { GetServerSidePropsContext } from "next";
+import { GetServerSidePropsContext, NextPage } from "next";
 import { userFromRequest } from "@/web/tokens";
+import useForm from "../../hooks/useForm";
+import loginValidations from "./validations";
+import formFields from "./formFields";
+import { useServerRefresher } from "@/hooks/useServerRefresher";
+import { User } from "@prisma/client";
+// import LoginImage from "../../assets/images/login.svg";
 
-const Login: React.FC = (): JSX.Element => {
+const Login: NextPage = (): JSX.Element => {
   const [loginUser, { error, data }] = useLoginUserMutation();
-  const [userData, setUserData] = useState<IUserLoginData>({
-    email: {
-      value: "",
-      type: "email",
-      placeholder: "whoyouare@gmail.com"
+  const refreshServer = useServerRefresher();
+  const { handleChange, handleSubmit, formValues, formErrors } = useForm(
+    {
+      email: "",
+      password: ""
     },
-    password: {
-      value: "",
-      type: "password",
-      placeholder: "password"
+    loginValidations,
+    loginUser
+  );
+
+  useEffect(() => {
+    if (data) {
+      refreshServer();
     }
-  });
-
-  const handleChange = (key: TInputs, e: React.FormEvent<HTMLInputElement>): void => {
-    setUserData({
-      ...userData,
-      [key]: {
-        ...(userData as any)[key],
-        value: e.currentTarget.value
-      }
-    });
-  };
-
-  const handleSubmit = async (): Promise<void> => {
-    await loginUser({
-      email: userData.email.value,
-      password: userData.password.value
-    });
-  };
+  }, [data, refreshServer]);
 
   return (
     <div className={Styles.login}>
+      {/* <LoginImage /> */}
       {error && <h1>ERRORR</h1>}
-      <Form data={userData} handleChange={handleChange} />
+      <h1 className={Styles.title}>Log In</h1>
+      <Form
+        formFields={formFields}
+        formErrors={formErrors}
+        userData={formValues}
+        handleChange={handleChange}
+      />
       <small>
-        Don{"&apos"}t you have account?{" "}
+        Don&apos;t you have account?{" "}
         <Link href={"/Signin"}>
           <a className={Styles.signinLink}>Sign in</a>
         </Link>
         !
       </small>
-      <Button type="primary" onClIick={handleSubmit}>
-        Login <RiLoginBoxFill />
-      </Button>
+      <div className={Styles.buttonContainer}>
+        <Button type="primary" onClIick={handleSubmit}>
+          Login <RiLoginBoxFill />
+        </Button>
+      </div>
     </div>
   );
 };

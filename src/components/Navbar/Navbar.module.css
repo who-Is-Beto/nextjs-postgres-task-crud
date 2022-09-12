@@ -2,7 +2,7 @@
   width: 100%;
   grid-area: header;
   border-radius: 0.5rem;
-  background-color: var(--lightPurple);
+  background-color: var(--lightSecondary);
   box-shadow: var(--shadow);
 }
 

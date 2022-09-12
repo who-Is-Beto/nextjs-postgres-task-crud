@@ -1,22 +1,31 @@
 import React from "react";
-import { IUserLoginType, TInputs } from "shimps";
+import { IUserLoginType } from "shimps";
 import Input from "../Input";
 
-type IFormProps = {
-  [key: string]: IUserLoginType;
-};
-
 const Form: React.FC<{
-  data: IFormProps;
-  handleChange: (key: TInputs, e: React.FormEvent<HTMLInputElement>) => void;
-}> = (props): JSX.Element => {
+  userData: { [key: string]: any };
+  formFields: Array<IUserLoginType>;
+  formErrors: {
+    [key: string]: any;
+  };
+  handleChange: (
+    event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
+  ) => void;
+}> = ({ formFields, userData, handleChange, formErrors }): JSX.Element => {
   return (
     <>
-      {Object.entries(props.data).map(([key, value]) => {
+      {formFields.map((field: IUserLoginType) => {
         return (
-          <div key={key}>
-            <Input handleChange={props.handleChange} label={key} value={value} />
-          </div>
+          <Input
+            name={field.name}
+            key={field.name}
+            type={field.type}
+            label={field.name}
+            errorMessage={formErrors[field.name]}
+            placeholder={field.placeholder}
+            value={userData[field.name]}
+            handleChange={handleChange}
+          />
         );
       })}
     </>
