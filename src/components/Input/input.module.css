@@ -1,9 +1,9 @@
 .input {
+  width: inherit;
   background-color: var(--tealBlue);
-  color: var(--darkPurple);
+  color: var(--darkPrimary);
   font-weight: 700;
   min-width: 14rem;
-  max-width: 24rem;
   padding: 0.8rem 1rem;
   border: none;
   outline: none;
@@ -17,9 +17,18 @@
 }
 
 .label {
+  width: 100%;
   gap: 0.5rem;
   display: flex;
   text-transform: capitalize;
   font-weight: 700;
   flex-direction: column;
+}
+
+.errorMessage {
+  letter-spacing: 1px;
+  color: var(--danger);
+  font-size: 0.8rem;
+  text-transform: none;
+  font-weight: 800;
 }

@@ -4,6 +4,7 @@
   border-radius: 0.5rem;
   border: none;
   display: flex;
+  width: 100%;
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
@@ -23,13 +24,13 @@
 }
 
 .primary {
-  background-color: var(--pink);
+  background-color: var(--lightTerciary);
 }
 
 .secondary {
   background-color: var(--tealBlue);
-  color: var(--darkPurple);
-  border: 1px solid var(--darkPurple);
+  color: var(--darkPrimary);
+  border: 1px solid var(--darkPrimary);
 }
 
 .danger {
@@ -37,6 +38,6 @@
 }
 
 .dark {
-  background-color: var(--darkPurple);
-  border: 1px solid var(--darkPurple);
+  background-color: var(--darkPrimary);
+  border: 1px solid var(--darkPrimary);
 }

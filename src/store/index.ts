@@ -6,7 +6,8 @@ export const store = configureStore({
   reducer: {
     [rootServices.reducerPath]: rootServices.reducer,
     app: appSlice
-  }
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(rootServices.middleware)
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

@@ -8,7 +8,7 @@ const handler = defaultHandler<NextApiRequest, NextApiResponse>().post(async (re
 
   if (user) {
     authenticatedUser(res, user);
-    return res.status(201).json(user);
+    return res.status(201).json({ user, message: "User created successfully c:" });
   } else {
     return res.status(400).json({ message: "User already exists :c" });
   }

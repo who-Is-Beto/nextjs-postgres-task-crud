@@ -51,7 +51,7 @@ export async function userFromRequest(
   }
 
   try {
-    const data = jwt.verify(req.cookies.OutsideJWT, JWT_TOKEN_KEY);
+    const data = await jwt.verify(req.cookies.OutsideJWT, JWT_TOKEN_KEY);
 
     if (!data) return undefined;
 
