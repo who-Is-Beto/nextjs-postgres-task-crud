@@ -13,3 +13,15 @@ export const createUser = async (params: TDataSendRegister): Promise<User | null
   user.password = "";
   return user;
 };
+
+export const updateUser = async (params: TDataSendRegister): Promise<User | null> => {
+  const password = await encryptPassword(params.password);
+
+  const user = await prisma.user.update({
+    where: { email: params.email },
+    data: { ...params, password }
+  });
+
+  user.password = "";
+  return user;
+};

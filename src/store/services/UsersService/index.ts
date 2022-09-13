@@ -22,6 +22,21 @@ const usersService = rootServices.injectEndpoints({
         }
       })
     }),
+    updateUser: builder.mutation<DataResponseSuccess, TDataSendRegister>({
+      query: ({ email, password, username }) => ({
+        url: "/api/users",
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: "admin123"
+        },
+        body: {
+          email,
+          password,
+          username
+        }
+      })
+    }),
     createUser: builder.mutation<DataResponseSuccess, TDataSendRegister>({
       query: ({ email, password, username }) => ({
         url: "/api/users",
@@ -39,8 +54,8 @@ const usersService = rootServices.injectEndpoints({
     }),
     logoutUser: builder.mutation<DataResponseMessage, void>({
       query: () => ({
-        url: "/api/logout",
-        method: "POST",
+        url: "/api/sessions",
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           apikey: "admin123"
@@ -50,4 +65,9 @@ const usersService = rootServices.injectEndpoints({
   })
 });
 
-export const { useLoginUserMutation, useLogoutUserMutation, useCreateUserMutation } = usersService;
+export const {
+  useUpdateUserMutation,
+  useLoginUserMutation,
+  useLogoutUserMutation,
+  useCreateUserMutation
+} = usersService;
