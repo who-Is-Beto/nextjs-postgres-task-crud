@@ -6,7 +6,6 @@ import defaultHandler from "../../_defaultHandler";
 const handler = defaultHandler<NextApiRequest, NextApiResponse>()
   .post(async (req, res) => {
     const user = await login(req.body);
-
     if (user) {
       authenticatedUser(res, user);
       return res.status(200).json({ user, message: "User logged in successfully c:" });

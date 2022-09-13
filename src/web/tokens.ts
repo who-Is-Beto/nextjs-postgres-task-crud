@@ -6,7 +6,7 @@ import { prisma } from "@/config";
 import { NextApiRequestCookies } from "next/dist/server/api-utils";
 import { IncomingMessage } from "http";
 
-const JWT_TOKEN_KEY = process.env.TOKEN_KEY || "OutsideJWT";
+export const JWT_TOKEN_KEY = process.env.TOKEN_KEY || "OutsideJWT";
 const cookieOptions = {
   httpOnly: true,
   maxAge: 2592000,
@@ -36,7 +36,7 @@ export function authenticatedUser(res: NextApiResponse, user: User): void {
 }
 
 export function logoutUser(res: NextApiResponse) {
-  setCookie(res, "auth", "0", {
+  setCookie(res, "OutsideJWT", "0", {
     ...cookieOptions,
     path: "/",
     maxAge: 1
