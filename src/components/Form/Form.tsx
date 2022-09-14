@@ -20,8 +20,8 @@ const Form: React.FC<{
             name={field.name}
             key={field.name}
             type={field.type}
-            label={field.name}
-            errorMessage={formErrors[field.name]}
+            label={field.label}
+            error={formErrors[field.name]}
             placeholder={field.placeholder}
             value={userData[field.name]}
             handleChange={handleChange}

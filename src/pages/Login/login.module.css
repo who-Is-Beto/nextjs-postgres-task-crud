@@ -2,15 +2,16 @@
   width: 100%;
   height: var(--pageMinHeight);
   display: flex;
-  max-width: 70%;
-  margin: 1rem auto 0;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 0.5rem;
+  padding: 1rem;
 }
 
 .title {
+  text-align: right;
+  width: 100%;
+  margin-bottom: 1rem;
   color: var(--lightGreen);
 }
 

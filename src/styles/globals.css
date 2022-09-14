@@ -56,6 +56,7 @@ a {
   min-height: var(--pageMinHeight);
   background-color: var(--lightSecondary);
   border-radius: 0.5rem;
+  overflow: auto;
 }
 
 .pageTitle {
