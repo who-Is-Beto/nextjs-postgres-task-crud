@@ -34,6 +34,7 @@ type IUserLoginType = {
   type: TInputs;
   name: string;
   placeholder: string;
+  label: string;
 };
 
 interface TDataSendLogin {

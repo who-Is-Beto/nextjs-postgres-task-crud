@@ -5,14 +5,15 @@ import InputStyles from "./input.module.css";
 const Input: React.FC<{
   label: string;
   value: string;
-  errorMessage: string;
+  error: IStandardValidatorResponse;
   name: string;
   type: TInputs;
   placeholder?: string;
   handleChange: (
     event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
   ) => void;
-}> = ({ label, handleChange, value, type, placeholder, name, errorMessage }): JSX.Element => {
+}> = ({ label, handleChange, value, type, placeholder, name, error }): JSX.Element => {
+  console.log(error);
   return (
     <label className={InputStyles.label}>
       {label}
@@ -24,7 +25,7 @@ const Input: React.FC<{
         onInput={handleChange as any}
         value={value}
       />
-      <small className={InputStyles.errorMessage}>{errorMessage}</small>
+      {error && <p className={InputStyles.errorMessage}>{error.message}</p>}
     </label>
   );
 };

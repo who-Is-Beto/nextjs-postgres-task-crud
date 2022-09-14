@@ -31,30 +31,28 @@ const SignIn: NextPage = (): JSX.Element => {
     }
   }, [data, refreshServer]);
   return (
-    <>
-      <div className={Styles.login}>
-        {error && <h1>ERRORR</h1>}
-        <h1>Sign in</h1>
-        <Form
-          formFields={signinFormFields}
-          formErrors={formErrors}
-          userData={formValues}
-          handleChange={handleChange}
-        />
-        <small>
-          You already have an account?{" "}
-          <Link href={"/Login"}>
-            <a className={Styles.signinLink}>Log in</a>
-          </Link>
-          !
-        </small>
-        <div className={Styles.buttonContainer}>
-          <Button type="primary" onClIick={handleSubmit}>
-            Create account
-          </Button>
-        </div>
+    <div className={Styles.login}>
+      {error && <h1>ERRORR</h1>}
+      <h1 className={Styles.title}>Sign In</h1>
+      <Form
+        formFields={signinFormFields}
+        formErrors={formErrors}
+        userData={formValues}
+        handleChange={handleChange}
+      />
+      <small>
+        You already have an account?{" "}
+        <Link href={"/Login"}>
+          <a className={Styles.signinLink}>Log in</a>
+        </Link>
+        !
+      </small>
+      <div className={Styles.buttonContainer}>
+        <Button type="primary" onClIick={handleSubmit}>
+          Create account
+        </Button>
       </div>
-    </>
+    </div>
   );
 };
 
