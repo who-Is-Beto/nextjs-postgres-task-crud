@@ -1,0 +1,36 @@
+.taskPage {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  row-gap: 2rem;
+  position: relative;
+}
+
+.tasks {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.taskAdd {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  transform-origin: bottom right;
+  width: 3rem;
+  height: 3rem;
+}
+
+.taskAdd__icon {
+  font-size: 2rem;
+  color: var(--lightSecondary);
+}
+
+.userGreeting {
+  text-align: right;
+}
+
+.userGreeting__name {
+  font-weight: bold;
+  color: var(--lightGreen);
+}

@@ -29,7 +29,6 @@ const useForm = (
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
   ): void => {
-    console.log("handleChange");
     event.persist();
     setFormValues({ ...formValues, [event.target.name]: event.target.value });
     setFormErrors({ ...formErrors, [event.target.name]: "" });
@@ -39,11 +38,6 @@ const useForm = (
     event.preventDefault();
     event.persist();
     setFormErrors({ ...formErrors, ...validateValues(formValues, validations).errors });
-    // Object.entries(validateValues(formValues, validations).errors).forEach(([key, value]) => {
-    //   console.log(formErrors[key], key);
-    //   setFormErrors({ ...formErrors, [key]: value });
-    //   // setFormErrors({ ...formErrors, [key]: value });
-    // });
     if (Object.keys(validateValues(formValues, validations).errors).length === 0) {
       setIsSubmit(true);
     }

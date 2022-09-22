@@ -1,5 +1,4 @@
 .unAuthContainer {
-  padding: 1rem;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -39,5 +38,4 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  padding: 1rem 0;
 }

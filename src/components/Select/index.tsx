@@ -6,10 +6,10 @@ import { setLenguage } from "@/store/services/slice/appSlice";
 import { TLenguages } from "shimps";
 import { useDispatch } from "react-redux";
 
-const Select: React.FC<{ value: { [key: string]: boolean } }> = ({ value }): JSX.Element => {
+const Select: React.FC<{ value: any }> = ({ value }): JSX.Element => {
   const [active, setActive] = useState(false);
-  const dispatch = useDispatch();
   const [label, setLabel] = useState("");
+  const dispatch = useDispatch();
 
   const toggleActive = (): void => {
     setActive(!active);

@@ -1,6 +1,5 @@
 .settingsContainer {
   height: var(--pageMinHeight);
-  padding: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

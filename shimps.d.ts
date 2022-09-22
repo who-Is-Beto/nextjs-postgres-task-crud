@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { Task, User } from "@prisma/client";
 import { Interface } from "readline";
 
 type IUserLoginData = {
@@ -42,6 +42,10 @@ interface TDataSendLogin {
   password: string;
 }
 
+interface TDataToGetTasks {
+  userId: number;
+}
+
 interface TDataSendRegister extends TDataSendLogin {
   username: string;
 }
@@ -51,7 +55,8 @@ interface DataResponseMessage {
 }
 
 interface DataResponseSuccess extends DataResponseMessage {
-  user: User;
+  user?: User;
+  tasks?: Task[];
 }
 
 type TDataResponseLoginError = {
