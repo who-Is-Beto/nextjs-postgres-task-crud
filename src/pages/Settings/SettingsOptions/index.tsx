@@ -9,6 +9,7 @@ const SettingsOption: React.FC<{
   label: string;
   value: IAviableLenguages | boolean;
 }> = ({ label, value, setDarkMode }): JSX.Element => {
+  console.log(value);
   return (
     <div className={SettingOptionStyle.settingOptionContainer}>
       <span className={SettingOptionStyle.optionLabel}>{label}:</span>

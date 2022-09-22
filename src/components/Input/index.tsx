@@ -13,7 +13,6 @@ const Input: React.FC<{
     event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
   ) => void;
 }> = ({ label, handleChange, value, type, placeholder, name, error }): JSX.Element => {
-  console.log(error);
   return (
     <label className={InputStyles.label}>
       {label}

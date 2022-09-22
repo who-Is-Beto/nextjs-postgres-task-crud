@@ -27,6 +27,14 @@
   background-color: var(--lightTerciary);
 }
 
+.info {
+  background-color: var(--lightPrimary);
+}
+
+.warning {
+  background-color: var(--lightOrange);
+}
+
 .secondary {
   background-color: var(--tealBlue);
   color: var(--darkPrimary);

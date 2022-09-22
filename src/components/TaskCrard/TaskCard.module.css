@@ -1,0 +1,24 @@
+.taskCard {
+  border: 1px solid #ccc;
+  padding: 1rem 1rem 1rem 2rem;
+  position: relative;
+  border-radius: 0.5rem;
+}
+
+.taskCard__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.taskCard__status {
+  text-align: start;
+  color: var(--danger);
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.taskCard__descriptionContainer {
+  padding: 0.5rem;
+  text-align: center;
+}

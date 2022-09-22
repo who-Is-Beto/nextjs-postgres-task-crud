@@ -2,9 +2,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { createUser, updateUser } from "@/lib/users";
 import { authenticatedUser, userFromRequest } from "@/web/tokens";
 import defaultHandler from "@/pages/_defaultHandler";
-import jwt from "jsonwebtoken";
-import { login } from "@/lib/auth";
-import { verifyPassword } from "@/lib/auth/passwordUtils";
 
 const handler = defaultHandler<NextApiRequest, NextApiResponse>()
   .post(async (req, res) => {

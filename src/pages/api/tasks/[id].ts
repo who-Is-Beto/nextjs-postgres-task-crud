@@ -1,16 +1,13 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { getTasks } from "@/lib/tasks";
+import defaultHandler from "@/pages/_defaultHandler";
+import type { NextApiRequest, NextApiResponse } from "next";
 
-export default function taskById(request: NextApiRequest, response: NextApiResponse): void {
-  const { method } = request;
-
-  switch (method) {
-    case "GET":
-      return response.status(200).json("getting unique task");
-    case "PUT":
-      return response.status(201).json("updating unique task");
-    case "DELETE":
-      return response.status(200).json("deleting unique task");
-    default:
-      return response.status(401).json("INVALID METHOD");
+const handler = defaultHandler<NextApiRequest, NextApiResponse>().get(async (req, res) => {
+  const tasks = await getTasks({ userId: Number(req.query.id) });
+  if (tasks) {
+    return res.status(200).json({ tasks, message: "Tasks found c:" });
   }
-}
+  return res.status(404).json({ message: "Tasks not found :c" });
+});
+
+export default handler;
