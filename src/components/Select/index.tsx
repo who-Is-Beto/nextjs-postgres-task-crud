@@ -1,54 +1,56 @@
-import React, { useEffect, useState } from "react";
-import SelectStyles from "./Select.module.css";
-import { AiOutlineCaretDown } from "react-icons/ai";
-import Option from "./Option";
-import { setLenguage } from "@/store/services/slice/appSlice";
-import { TLenguages } from "shimps";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
+import { SelectContext } from "./SelectContext";
 import { useDispatch } from "react-redux";
+import useOnClickOutside from "@/hooks/useOnClickOutside";
+import { AiFillCaretDown } from "react-icons/ai";
+import SelectStyles from "./Select.module.css";
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 
-const Select: React.FC<{ value: any }> = ({ value }): JSX.Element => {
-  const [active, setActive] = useState(false);
-  const [label, setLabel] = useState("");
+const Select: React.FC<{
+  children: ReactNode | ReactNode[];
+  defaultValue?: string;
+  placeholder?: string;
+  selectHandler: ActionCreatorWithPayload<any, any>;
+}> = ({ children, defaultValue, placeholder, selectHandler }): JSX.Element => {
   const dispatch = useDispatch();
+  const [selectedOption, setSelectedOption] = useState<string>(defaultValue || "");
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const handleShowDropdown = (): void => setShowDropdown(!showDropdown);
+  const selectPlaceholder = placeholder || "Select an option";
 
-  const toggleActive = (): void => {
-    setActive(!active);
+  const selectContainerRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutSide = () => setShowDropdown(false);
+
+  useOnClickOutside(selectContainerRef, handleClickOutSide);
+  const updateSelectedOption = (option: string) => {
+    setSelectedOption(option);
+    setShowDropdown(false);
   };
 
-  const handleSelectLeanguage = (lenguage: string): void => {
-    setLabel(lenguage);
-    dispatch(setLenguage(lenguage as TLenguages));
-  };
+  useEffect((): void => {
+    if (selectedOption) {
+      dispatch(selectHandler(selectedOption));
+    }
+  }, [selectedOption, selectHandler, dispatch]);
 
-  useEffect(() => {
-    Object.entries(value).forEach(([key, lengValue]) => {
-      if (lengValue === true) {
-        setLabel(key);
-      }
-    });
-  }, []);
   return (
-    <>
-      <button className={SelectStyles.select} onClick={toggleActive}>
-        <span className={SelectStyles.selectSpan}>
-          {label}{" "}
-          <AiOutlineCaretDown
-            className={`${SelectStyles.downIcon} ${active ? "upsideDown" : ""}`}
+    <SelectContext.Provider
+      value={{
+        selectedOption,
+        changeSelectedOption: updateSelectedOption
+      }}
+    >
+      <div className={SelectStyles.select} ref={selectContainerRef}>
+        <span className={SelectStyles.selectSpan} onClick={handleShowDropdown}>
+          {selectedOption.length > 0 ? selectedOption : selectPlaceholder}
+          <AiFillCaretDown
+            className={`${SelectStyles.selectIcon} ${showDropdown ? "rotate" : ""}`}
           />
         </span>
-        {active && <div onClick={toggleActive} className={`${SelectStyles.selectViewport}`}></div>}
-
-        {active && (
-          <div className={SelectStyles.selectContainer}>
-            {Object.keys(value).map((key) => (
-              <div key={key} className={`animate__animated  animate__fadeInDown`}>
-                <Option onSelect={handleSelectLeanguage} label={key} />
-              </div>
-            ))}
-          </div>
-        )}
-      </button>
-    </>
+        {showDropdown && <ul className={SelectStyles.selectList}>{children}</ul>}
+      </div>
+    </SelectContext.Provider>
   );
 };
 

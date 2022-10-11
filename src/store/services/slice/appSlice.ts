@@ -1,13 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IAuth, IStore, TLenguages } from "shimps";
+import { IStore, TLenguages } from "shimps";
 
 const initialState: IStore = {
   config: {
-    lenguage: {
-      english: true,
-      spanish: false,
-      french: false
-    },
+    lenguage: "english",
     darkMode: true
   },
   auth: {
@@ -20,20 +16,15 @@ const appSlice = createSlice({
   initialState,
   reducers: {
     setLenguage: (state, action: PayloadAction<TLenguages>) => {
-      Object.keys(state.config.lenguage).forEach((key) => {
-        state.config.lenguage[key] = false;
-      });
-      state.config.lenguage[action.payload] = true;
+      console.log("setLenguage", action.payload);
+      state.config.lenguage = action.payload;
     },
     setDarkMode: (state, action: PayloadAction<boolean>) => {
       state.config.darkMode = action.payload;
-    },
-    setAuth: (state, action: PayloadAction<IAuth>) => {
-      state.auth = action.payload;
     }
   }
 });
 
-export const { setDarkMode, setLenguage, setAuth } = appSlice.actions;
+export const { setDarkMode, setLenguage } = appSlice.actions;
 
 export default appSlice.reducer;

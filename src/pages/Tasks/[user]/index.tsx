@@ -6,7 +6,6 @@ import { GetServerSidePropsContext, NextPage } from "next";
 import React from "react";
 import { TUser } from "shimps";
 import taskStyles from "./tasks.module.css";
-import { BsPlusCircleFill } from "react-icons/bs";
 
 const Tasks: NextPage<{ user: TUser }> = ({ user }): JSX.Element => {
   const { data, error } = useGetTasksByUserIdQuery({ userId: user.id });
