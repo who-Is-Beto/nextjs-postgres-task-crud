@@ -1,15 +1,17 @@
+import React from "react";
 import Select from "@/components/Select";
 import Switch from "@/components/switch";
-import React from "react";
-import { IAviableLenguages } from "shimps";
+import { TLenguages } from "shimps";
 import SettingOptionStyle from "./SettingOption.module.css";
+import Option from "@/components/Select/Option";
+import { Langs } from "@/constants";
+import { setLenguage } from "@/store/services/slice/appSlice";
 
 const SettingsOption: React.FC<{
   setDarkMode: () => void;
   label: string;
-  value: IAviableLenguages | boolean;
+  value: Array<TLenguages> | boolean;
 }> = ({ label, value, setDarkMode }): JSX.Element => {
-  console.log(value);
   return (
     <div className={SettingOptionStyle.settingOptionContainer}>
       <span className={SettingOptionStyle.optionLabel}>{label}:</span>
@@ -17,7 +19,13 @@ const SettingsOption: React.FC<{
         <Switch handleChange={setDarkMode} value={value} id={label} />
       ) : (
         <>
-          <Select value={value} />
+          <Select selectHandler={setLenguage} placeholder="Select a lenguage">
+            {Langs.map((option) => (
+              <Option key={option} value={option}>
+                {option}
+              </Option>
+            ))}
+          </Select>
         </>
       )}
     </div>

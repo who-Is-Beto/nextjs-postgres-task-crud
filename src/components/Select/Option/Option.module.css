@@ -4,4 +4,11 @@
   color: var(--lightGreen);
   cursor: pointer;
   text-align: left;
+  padding: 1rem 0.5rem;
+}
+
+.option:hover {
+  color: var(--lightGreen);
+
+  background-color: var(--lightTerciary);
 }

@@ -41,6 +41,10 @@ a {
   cursor: pointer;
 }
 
+.rotate {
+  transform: rotate(180deg);
+}
+
 .layout {
   display: grid;
   grid-template-rows: calc(100vh - 6rem) 3rem;

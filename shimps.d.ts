@@ -70,7 +70,7 @@ interface IAuth {
 }
 
 interface IUserConfig {
-  lenguage: IAviableLenguages;
+  lenguage: TLenguages;
   darkMode: boolean;
 }
 
