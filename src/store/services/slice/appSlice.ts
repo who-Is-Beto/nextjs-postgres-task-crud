@@ -16,7 +16,6 @@ const appSlice = createSlice({
   initialState,
   reducers: {
     setLenguage: (state, action: PayloadAction<TLenguages>) => {
-      console.log("setLenguage", action.payload);
       state.config.lenguage = action.payload;
     },
     setDarkMode: (state, action: PayloadAction<boolean>) => {

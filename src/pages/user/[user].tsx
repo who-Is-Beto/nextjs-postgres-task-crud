@@ -5,14 +5,14 @@ import { GetServerSidePropsContext, NextPage } from "next";
 import userStyles from "./user.module.css";
 import Form from "@/components/Form/Form";
 import useForm from "@/hooks/useForm";
-import changeUserDataFormFields from "./optionsToChange";
+import changeUserDataFormFields from "../../utils/optionsToChange";
 import { useUpdateUserMutation } from "@/store/services/UsersService";
-import signinValidations from "../Signin/signinValidations";
+import signinValidations from "../../utils/signinValidations";
 import Button from "@/components/Button/Button";
 import { MdTipsAndUpdates } from "react-icons/md";
 
 const UserPage: NextPage<{ user: User }> = ({ user }): JSX.Element => {
-  const [updateUser, { data, isSuccess }] = useUpdateUserMutation();
+  const [updateUser] = useUpdateUserMutation();
   const { formErrors, formValues, handleChange, handleSubmit } = useForm(
     {
       email: "",
@@ -37,7 +37,7 @@ const UserPage: NextPage<{ user: User }> = ({ user }): JSX.Element => {
           <Form
             formFields={changeUserDataFormFields}
             formErrors={formErrors}
-            userData={formValues}
+            formData={formValues}
             handleChange={handleChange}
           />
         </div>

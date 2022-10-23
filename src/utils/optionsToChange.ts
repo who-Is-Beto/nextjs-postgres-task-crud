@@ -1,6 +1,6 @@
-import { IUserLoginType } from "shimps";
+import { FormField } from "shimps";
 
-const signinFormFields: IUserLoginType[] = [
+const changeUserDataFormFields: FormField[] = [
   {
     name: "username",
     placeholder: "Juan",
@@ -27,4 +27,4 @@ const signinFormFields: IUserLoginType[] = [
   }
 ];
 
-export default signinFormFields;
+export default changeUserDataFormFields;

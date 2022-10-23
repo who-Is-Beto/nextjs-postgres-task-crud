@@ -7,6 +7,7 @@ import {
 } from "@reduxjs/toolkit/dist/query";
 import { MutationTrigger } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import React, { useState, useEffect } from "react";
+import { IResponse } from "shimps";
 import validateValues from "who-fields-validator";
 
 const useForm = (
@@ -14,10 +15,10 @@ const useForm = (
   validations: TFieldValidations[],
   mutation: MutationTrigger<
     MutationDefinition<
-      any,
+      { [key: string]: any },
       BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>,
       never,
-      any,
+      IResponse,
       "services"
     >
   >
@@ -45,7 +46,9 @@ const useForm = (
 
   useEffect((): void => {
     if (isSubmit) {
-      mutation(formValues);
+      const response = mutation(formValues).then((res) => res);
+
+      console.log("response", response);
       setIsSubmit(false);
     }
   }, [isSubmit]);

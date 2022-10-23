@@ -8,11 +8,9 @@ import { RiLoginBoxFill } from "react-icons/ri";
 import { GetServerSidePropsContext, NextPage } from "next";
 import { userFromRequest } from "@/web/tokens";
 import useForm from "../../hooks/useForm";
-import loginValidations from "./validations";
-import formFields from "./formFields";
+import loginValidations from "../../utils/validations";
+import formFields from "../../utils/formFields";
 import { useServerRefresher } from "@/hooks/useServerRefresher";
-import { User } from "@prisma/client";
-// import LoginImage from "../../assets/images/login.svg";
 
 const Login: NextPage = (): JSX.Element => {
   const [loginUser, { error, data }] = useLoginUserMutation();
@@ -40,7 +38,7 @@ const Login: NextPage = (): JSX.Element => {
       <Form
         formFields={formFields}
         formErrors={formErrors}
-        userData={formValues}
+        formData={formValues}
         handleChange={handleChange}
       />
       <small>

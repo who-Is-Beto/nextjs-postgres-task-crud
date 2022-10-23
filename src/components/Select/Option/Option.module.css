@@ -4,7 +4,7 @@
   color: var(--lightGreen);
   cursor: pointer;
   text-align: left;
-  padding: 1rem 0.5rem;
+  padding: 1rem;
 }
 
 .option:hover {

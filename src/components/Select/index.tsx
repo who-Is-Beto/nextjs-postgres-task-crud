@@ -4,13 +4,12 @@ import { useDispatch } from "react-redux";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { AiFillCaretDown } from "react-icons/ai";
 import SelectStyles from "./Select.module.css";
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 
 const Select: React.FC<{
   children: ReactNode | ReactNode[];
   defaultValue?: string;
   placeholder?: string;
-  selectHandler: ActionCreatorWithPayload<any, any>;
+  selectHandler?: (value: any) => void;
 }> = ({ children, defaultValue, placeholder, selectHandler }): JSX.Element => {
   const dispatch = useDispatch();
   const [selectedOption, setSelectedOption] = useState<string>(defaultValue || "");
@@ -29,8 +28,8 @@ const Select: React.FC<{
   };
 
   useEffect((): void => {
-    if (selectedOption) {
-      dispatch(selectHandler(selectedOption));
+    if (selectedOption && selectHandler) {
+      selectHandler(selectedOption);
     }
   }, [selectedOption, selectHandler, dispatch]);
 

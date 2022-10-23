@@ -12,11 +12,17 @@
   transition-duration: 0.3s;
 }
 
+.input_textArea {
+  height: 8rem;
+  resize: none;
+}
+
 .input:focus {
   box-shadow: var(--inputShadow);
 }
 
 .label {
+  padding: 0.5rem 0;
   width: 100%;
   gap: 0.5rem;
   display: flex;

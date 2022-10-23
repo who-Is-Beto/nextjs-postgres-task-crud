@@ -8,8 +8,8 @@ import { GetServerSidePropsContext, NextPage } from "next";
 import Link from "next/link";
 import { useEffect } from "react";
 import Styles from "../Login/login.module.css";
-import signinFormFields from "./signinFormFields";
-import signinValidations from "./signinValidations";
+import signinFormFields from "../../utils/signinFormFields";
+import signinValidations from "../../utils/signinValidations";
 
 const SignIn: NextPage = (): JSX.Element => {
   const [createUser, { error, data }] = useCreateUserMutation();
@@ -37,7 +37,7 @@ const SignIn: NextPage = (): JSX.Element => {
       <Form
         formFields={signinFormFields}
         formErrors={formErrors}
-        userData={formValues}
+        formData={formValues}
         handleChange={handleChange}
       />
       <small>

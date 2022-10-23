@@ -1,34 +1,36 @@
 import React from "react";
-import { IUserLoginType } from "shimps";
+import { FormField } from "shimps";
 import Input from "../Input";
+import FormStyles from "./form.module.css";
 
 const Form: React.FC<{
-  userData: { [key: string]: any };
-  formFields: Array<IUserLoginType>;
+  formData: { [key: string]: any };
+  formFields: Array<FormField>;
   formErrors: {
     [key: string]: any;
   };
   handleChange: (
     event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
   ) => void;
-}> = ({ formFields, userData, handleChange, formErrors }): JSX.Element => {
+}> = ({ formFields, formData, handleChange, formErrors }): JSX.Element => {
   return (
-    <>
-      {formFields.map((field: IUserLoginType) => {
+    <form className={FormStyles.form}>
+      {formFields.map((field: FormField) => {
         return (
           <Input
+            textArea={field.textArea as boolean}
             name={field.name}
             key={field.name}
             type={field.type}
             label={field.label}
             error={formErrors[field.name]}
             placeholder={field.placeholder}
-            value={userData[field.name]}
+            value={formData[field.name]}
             handleChange={handleChange}
           />
         );
       })}
-    </>
+    </form>
   );
 };
 

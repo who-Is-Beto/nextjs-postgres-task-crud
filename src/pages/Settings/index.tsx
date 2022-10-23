@@ -1,15 +1,14 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { IStore } from "shimps";
 import SettingsOption from "./SettingsOptions";
 import SettingOptionStyle from "./Settings.module.css";
 import Button from "@/components/Button/Button";
 import { RiLogoutBoxRFill } from "react-icons/ri";
 import { useLogoutUserMutation } from "@/store/services/UsersService";
-import { useRouter } from "next/router";
 import { setDarkMode } from "@/store/services/slice/appSlice";
-import { useServerRefresher } from "@/hooks/useServerRefresher";
 import { GetServerSidePropsContext } from "next";
+import { useServerRefresher } from "@/hooks/useServerRefresher";
 import { userFromRequest } from "@/web/tokens";
 import { User } from "@prisma/client";
 import UnAuth from "@/components/unaAuth";
@@ -17,11 +16,11 @@ import UnAuth from "@/components/unaAuth";
 const Settings: React.FC<{ user: User }> = ({ user }): JSX.Element => {
   const globalSettings = useSelector((state: { app: IStore }) => state.app.config);
   const refreshServer = useServerRefresher();
-  const router = useRouter();
   const [logoutUser, { data }] = useLogoutUserMutation();
+  const dispatch = useDispatch();
 
   const handleChangeTheme = (): void => {
-    setDarkMode(false);
+    dispatch(setDarkMode(!globalSettings.darkMode));
   };
 
   const handleLogout = (): void => {
