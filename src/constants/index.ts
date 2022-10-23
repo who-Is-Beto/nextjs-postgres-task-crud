@@ -1,9 +1,5 @@
-import { TLenguages } from "shimps";
+import { TaskTates, TLenguages } from "shimps";
 
-export const taskStates = {
-  pending: "pending",
-  inProgress: "inProgress",
-  done: "done"
-};
+export const taskStates: TaskTates[] = ["pending", "in progress", "done"];
 
 export const Langs: TLenguages[] = ["english", "spanish"];

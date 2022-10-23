@@ -1,6 +1,6 @@
-import { IUserLoginType } from "shimps";
+import { FormField } from "shimps";
 
-const formFields: IUserLoginType[] = [
+const formFields: FormField[] = [
   {
     placeholder: "your_email@email.com",
     type: "email",

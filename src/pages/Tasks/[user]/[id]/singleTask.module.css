@@ -1,0 +1,45 @@
+.task {
+  height: 100%;
+}
+
+.task__header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
+  gap: 1rem;
+  margin: 1rem 0;
+  transition: all 0.3s ease;
+}
+
+.task__back {
+  width: 6rem;
+}
+
+.task__title {
+  text-align: center;
+  width: 100%;
+  word-wrap: break-word;
+}
+
+.task__body {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1rem 1fr;
+  gap: 1rem;
+  width: 100%;
+  height: auto;
+}
+
+.task__description {
+  width: 100%;
+  overflow: auto;
+}
+
+.task__edit {
+  position: fixed;
+  top: 80%;
+  transform: scale(1.2);
+  right: 10%;
+}

@@ -7,18 +7,24 @@
 }
 
 .tasks {
+  padding: 0 1rem;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
+  align-items: center;
 }
 
 .taskAdd {
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
+  position: fixed;
+  bottom: 6.5rem;
+  z-index: 2;
+  right: 2rem;
   transform-origin: bottom right;
   width: 3rem;
   height: 3rem;
+  transition-duration: 0.2s;
+  transition: transform 0.2s ease-in-out;
 }
 
 .taskAdd__icon {

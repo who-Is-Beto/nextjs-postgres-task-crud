@@ -55,6 +55,10 @@ a {
     "header header header";
 }
 
+.green {
+  color: var(--lightGreen);
+}
+
 .pageContainer {
   grid-area: content;
   min-height: var(--pageMinHeight);

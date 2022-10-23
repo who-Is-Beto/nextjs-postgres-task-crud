@@ -1,6 +1,8 @@
 import { Task, User } from "@prisma/client";
 import { Interface } from "readline";
 
+type TaskTates = "pending" | "in progress" | "done";
+
 type IUserLoginData = {
   email: IUserLoginType;
   password: IUserLoginType;
@@ -30,7 +32,8 @@ type TInputs =
   | "month"
   | "week";
 
-type IUserLoginType = {
+type FormField = {
+  textArea?: boolean;
   type: TInputs;
   name: string;
   placeholder: string;
@@ -59,8 +62,15 @@ interface DataResponseSuccess extends DataResponseMessage {
   tasks?: Task[];
 }
 
-type TDataResponseLoginError = {
+interface TDataResponseError {
   error: { data: TDataResponseLoginSuccess; status: number };
+}
+
+declare type IResponse = {
+  user?: User;
+  tasks?: Task[];
+  message: string;
+  error?: string;
 };
 
 type TLenguages = "spanish" | "english";
