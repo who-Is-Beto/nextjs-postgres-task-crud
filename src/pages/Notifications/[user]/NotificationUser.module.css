@@ -1,0 +1,19 @@
+.notificationPage {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  row-gap: 1rem;
+  position: relative;
+}
+.notifications {
+  padding: 1rem 1rem 0 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    align-items: center;
+}
+
+.title {
+  text-align: end;
+}

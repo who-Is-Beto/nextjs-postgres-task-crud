@@ -43,6 +43,14 @@ export const createTask = async (data: Task, user: User): Promise<Task | null> =
   return task;
 };
 
+export const deleteTask = async (id: number): Promise<Task | null> => {
+  const task = await prisma.task.delete({
+    where: { id }
+  });
+
+  return task;
+};
+
 export const updateTask = async (id: number, data: Task): Promise<Task | null> => {
   const task: Task | null = await prisma.task.update({
     where: { id },
