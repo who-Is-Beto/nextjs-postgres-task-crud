@@ -2,12 +2,12 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  row-gap: 2rem;
+  row-gap: 1rem;
   position: relative;
 }
 
 .tasks {
-  padding: 0 1rem;
+  padding: 1rem 1rem 0 0;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -19,7 +19,7 @@
   position: fixed;
   bottom: 6.5rem;
   z-index: 2;
-  right: 2rem;
+  right: 3rem;
   transform-origin: bottom right;
   width: 3rem;
   height: 3rem;

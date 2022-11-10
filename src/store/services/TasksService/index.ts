@@ -1,9 +1,19 @@
 import { Task } from "@prisma/client";
-import { DataResponseSuccess, IResponse, TDataToGetTasks } from "shimps";
+import { IResponse, TDataToGetTasks } from "shimps";
 import { rootServices } from "../rootService";
 
 const taskService = rootServices.injectEndpoints({
   endpoints: (builder) => ({
+    deleteTask: builder.mutation<Task, number>({
+      query: (id) => ({
+        url: `api/tasks/`,
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: { id }
+      })
+    }),
     createTask: builder.mutation<IResponse, Task>({
       query: (data) => ({
         url: "/api/tasks",
@@ -34,5 +44,9 @@ const taskService = rootServices.injectEndpoints({
   })
 });
 
-export const { useGetTasksByUserIdQuery, useCreateTaskMutation, useUpdateTaskMutation } =
-  taskService;
+export const {
+  useGetTasksByUserIdQuery,
+  useCreateTaskMutation,
+  useUpdateTaskMutation,
+  useDeleteTaskMutation
+} = taskService;

@@ -18,6 +18,7 @@ const Task: NextPage<{ task: Task }> = ({ task }): JSX.Element => {
   const [updateTask] = useUpdateTaskMutation();
   const [taskStatus, setTaskStatus] = useState<TaskTates>(task.status as TaskTates);
   const { user } = router.query;
+
   const handleGoBack = () => {
     router.back();
   };
@@ -58,7 +59,17 @@ const Task: NextPage<{ task: Task }> = ({ task }): JSX.Element => {
             })}
           </span>
         </div>
-        <p className={SingleTaskStyles.task__description}>{task.description}</p>
+        {task.dateToComplete && ( 
+          <div>
+            <strong> Date to complete:</strong>{" "}
+          <span>
+            {new Date(task.dateToComplete as Date).toLocaleDateString("en-US")}
+          </span>
+          </div>
+         )}
+        <p className={SingleTaskStyles.task__description}>
+          <p><strong>Task: </strong></p>
+          {task.description}</p>
         <div className={SingleTaskStyles.task__edit}>
           <Button href={`/Tasks/${user}/edit/${task.id}`} type="info">
             <GrEdit />
@@ -79,7 +90,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       revalidate: 5
     };
   } catch (error) {
-    console.log(error);
     return {
       notFound: true
     };

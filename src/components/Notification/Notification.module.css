@@ -1,0 +1,42 @@
+.notification {
+  min-height: 4rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  width: 100%;
+  height: 4rem;
+  border: 1px solid var(--tealBlue);
+  border-radius: 0.5rem;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.notification__title {
+  width: 40%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.notification__option {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  width: 10%;
+  height: 100%;
+  transition-duration: 0.3s;
+}
+
+.notification__option:hover {
+  transform: scale(1.2);
+}
+.notification__date {
+  color: var(--danger);
+  font-size: 0.8rem;
+  letter-spacing: 0.1rem;
+  font-weight: 800;
+  width: 30%;
+}

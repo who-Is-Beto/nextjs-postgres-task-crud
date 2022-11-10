@@ -46,12 +46,11 @@ const useForm = (
 
   useEffect((): void => {
     if (isSubmit) {
-      const response = mutation(formValues).then((res) => res);
+      mutation(formValues).then((res) => res);
 
-      console.log("response", response);
       setIsSubmit(false);
     }
-  }, [isSubmit]);
+  }, [isSubmit, mutation, formValues]);
 
   return {
     formValues,
