@@ -1,4 +1,5 @@
 import Button from "@/components/Button/Button";
+import { Modal, ModalButton, ModalContent } from "@/components/Modal";
 import TaskCard from "@/components/TaskCrard";
 import { useGetTasksByUserIdQuery } from "@/store/services/TasksService";
 import { userFromRequest } from "@/web/tokens";
@@ -25,12 +26,24 @@ const Tasks: NextPage<{ user: User }> = ({ user }): JSX.Element => {
       <h1 className={taskStyles.userGreeting}>
         Hello <span className={taskStyles.userGreeting__name}>{user.username}</span>!
       </h1>
+      <Modal>
+        <>
+          <ModalButton>
+            <h1>click</h1>
+          </ModalButton>
+          <ModalContent>
+            <h1>Modal</h1>
+          </ModalContent>
+        </>
+      </Modal>
       {isLoading && <p>Loading...</p>}
-      {!isLoading && data && <div className={taskStyles.tasks} onScroll={handleScroll}>
-        {data.tasks?.map((task) => (
-          <TaskCard key={task.id} username={user.username} task={task} />
-        ))}
-      </div>}
+      {!isLoading && data && (
+        <div className={taskStyles.tasks} onScroll={handleScroll}>
+          {data.tasks?.map((task) => (
+            <TaskCard key={task.id} username={user.username} task={task} />
+          ))}
+        </div>
+      )}
       {!scrolling && (
         <div className={taskStyles.taskAdd}>
           <Button href={`/Tasks/Create`} type="warning">

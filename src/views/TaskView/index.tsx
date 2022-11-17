@@ -22,7 +22,7 @@ const TaskView: React.FC<{
   isError: boolean;
   mutation: MutationTrigger<
     MutationDefinition<
-      { [key: string]: any },
+      any,
       BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>,
       never,
       IResponse,
@@ -35,13 +35,22 @@ const TaskView: React.FC<{
   buttonLabel: string;
   greenText?: string;
   task?: Task;
-}> = ({ isError, isLoading, isSuccess, mutation, buttonLabel, title, task, greenText }): JSX.Element => {
+}> = ({
+  isError,
+  isLoading,
+  isSuccess,
+  mutation,
+  buttonLabel,
+  title,
+  task,
+  greenText
+}): JSX.Element => {
   const router = useRouter();
   const { formErrors, formValues, handleChange, handleSubmit } = useForm(
     {
       title: task?.title ? task.title : "",
       description: task?.description ? task.description : "",
-      dateToComplete: task?.dateToComplete ? task.dateToComplete : "",
+      dateToComplete: task?.dateToComplete ? task.dateToComplete : ""
     },
     taskFieldValidations,
     mutation

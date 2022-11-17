@@ -15,7 +15,7 @@ const useForm = (
   validations: TFieldValidations[],
   mutation: MutationTrigger<
     MutationDefinition<
-      { [key: string]: any },
+      any,
       BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>,
       never,
       IResponse,
