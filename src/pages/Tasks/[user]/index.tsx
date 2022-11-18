@@ -42,11 +42,6 @@ const Tasks: NextPage<{ user: User }> = ({ user }): JSX.Element => {
       <h1 className={taskStyles.userGreeting}>
         Hello <span className={taskStyles.userGreeting__name}>{user.username}</span>!
       </h1>
-      <Modal isOpen={modal} openHandler={handleModal}>
-        <>
-          <DeleteTask task={taskToDelete as Task} />
-        </>
-      </Modal>
       {isLoading && <p>Loading...</p>}
       {!isLoading && data && (
         <div className={taskStyles.tasks} onScroll={handleScroll}>
@@ -67,6 +62,11 @@ const Tasks: NextPage<{ user: User }> = ({ user }): JSX.Element => {
           </Button>
         </div>
       )}
+      <Modal isOpen={modal} openHandler={handleModal}>
+        <>
+          <DeleteTask openHandler={handleModal} task={taskToDelete as Task} />
+        </>
+      </Modal>
     </div>
   );
 };

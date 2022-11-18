@@ -18,7 +18,7 @@
   left: calc(-50vw + 9rem);
   min-width: 200vw;
   min-height: 200vh;
-  z-index: 3;
+  z-index: 4;
   white-space: pre-wrap;
   background: rgb(0 0 0 / 47%);
 }
