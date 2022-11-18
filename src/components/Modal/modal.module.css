@@ -12,7 +12,7 @@
   background-color: var(--lightTerciary);
 }
 
-.modalBackgroud {
+.modalBackground {
   position: fixed;
   top: calc(-50vh + 2rem + 4px);
   left: calc(-50vw + 9rem);

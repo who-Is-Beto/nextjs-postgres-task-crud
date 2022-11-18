@@ -1,17 +1,27 @@
 import Button from "@/components/Button/Button";
-import { Modal, ModalButton, ModalContent } from "@/components/Modal";
+import { Modal } from "@/components/Modal";
+import DeleteTask from "@/components/Modal/DeleteTask";
 import TaskCard from "@/components/TaskCrard";
 import { useGetTasksByUserIdQuery } from "@/store/services/TasksService";
 import { userFromRequest } from "@/web/tokens";
-import { User } from "@prisma/client";
+import { Task, User } from "@prisma/client";
 import { GetServerSidePropsContext, NextPage } from "next";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import taskStyles from "./tasks.module.css";
 
 const Tasks: NextPage<{ user: User }> = ({ user }): JSX.Element => {
   const { data, isLoading } = useGetTasksByUserIdQuery({ userId: user.id });
-  const [scrolling, setScrolling] = useState(false);
+  const [scrolling, setScrolling] = useState<boolean>(false);
+  const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
+  const [modal, setModal] = useState<boolean>(false);
   const HEIGTH_TO_SHOW_SCROLL = 85;
+
+  const handleModal = (newIsOpen: boolean, task?: Task): void => {
+    setModal(newIsOpen);
+    if (task) {
+      setTaskToDelete(task);
+    }
+  };
 
   const handleScroll = (event: React.UIEvent<HTMLDivElement, UIEvent>) => {
     if (event.currentTarget.scrollTop > HEIGTH_TO_SHOW_SCROLL) {
@@ -21,26 +31,32 @@ const Tasks: NextPage<{ user: User }> = ({ user }): JSX.Element => {
     setScrolling(false);
   };
 
+  useEffect(() => {
+    if (!modal) {
+      setTaskToDelete(null);
+    }
+  }, [modal]);
+
   return (
     <div className={taskStyles.taskPage}>
       <h1 className={taskStyles.userGreeting}>
         Hello <span className={taskStyles.userGreeting__name}>{user.username}</span>!
       </h1>
-      <Modal>
+      <Modal isOpen={modal} openHandler={handleModal}>
         <>
-          <ModalButton>
-            <h1>click</h1>
-          </ModalButton>
-          <ModalContent>
-            <h1>Modal</h1>
-          </ModalContent>
+          <DeleteTask task={taskToDelete as Task} />
         </>
       </Modal>
       {isLoading && <p>Loading...</p>}
       {!isLoading && data && (
         <div className={taskStyles.tasks} onScroll={handleScroll}>
           {data.tasks?.map((task) => (
-            <TaskCard key={task.id} username={user.username} task={task} />
+            <TaskCard
+              handleModal={handleModal}
+              key={task.id}
+              username={user.username}
+              task={task}
+            />
           ))}
         </div>
       )}

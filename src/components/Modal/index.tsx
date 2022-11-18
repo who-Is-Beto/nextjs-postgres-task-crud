@@ -1,48 +1,37 @@
-import useModal from "@/hooks/useModal";
-import React, { ReactPortal, useEffect, useState, createContext, Dispatch } from "react";
+import useOnClickOutside from "@/hooks/useOnClickOutside";
+import React, { ReactPortal, useEffect, useState, createContext, Dispatch, useRef } from "react";
 import { createPortal } from "react-dom";
 import Styles from "./modal.module.css";
 
-const ModalContext = createContext<(boolean | Dispatch<boolean>)[] | null>(null);
-const ModalButton: React.FC<{ children: JSX.Element }> = ({ children }) => {
-  const [, setIsOpen] = useModal();
-  return React.cloneElement(children, { onClick: () => (setIsOpen as Dispatch<boolean>)(true) });
-};
-
-const ModalContent: React.FC<{ children: JSX.Element }> = ({ children }) => {
-  const [isOpen, setIsOpen] = useModal();
-  const closeModal = () => (setIsOpen as Dispatch<boolean>)(false);
-  return (
-    <dialog open={isOpen as boolean}>
-      <div className={Styles.modalBackgroudn}></div>
-      <div className={Styles.modal}>
-        <button onClick={closeModal} className={Styles.modal__closeButton}>
-          X
-        </button>
-        {children}
-      </div>
-    </dialog>
-  );
-};
-
-const Modal: React.FC<any> = (props): ReactPortal | null => {
+const Modal: React.FC<{
+  children: JSX.Element;
+  isOpen: boolean;
+  openHandler: (newIsOpen: boolean) => void;
+}> = ({ children, isOpen, openHandler }): ReactPortal | null => {
   const [isBrowser, setIsBrowser] = useState<boolean>(false);
   const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const value = [isOpen, setIsOpen];
+  const handleClickOutside = () => openHandler(false);
+  const ModalRef = useRef<HTMLDivElement>(null);
+  useOnClickOutside(ModalRef, handleClickOutside);
   useEffect(() => {
     setIsBrowser(true);
-    setModalRoot(document.getElementById("modal") as HTMLElement);
+    setModalRoot(document.getElementById("modal") as HTMLDivElement);
   }, []);
 
   if (isBrowser) {
     return createPortal(
-      <ModalContext.Provider value={value} {...props} />,
+      <dialog open={isOpen as boolean}>
+        <div className={Styles.modalBackground}></div>
+        <div ref={ModalRef} className={Styles.modal}>
+          <button className={Styles.modal__closeButton}>X</button>
+          {isOpen && children}
+        </div>
+      </dialog>,
       modalRoot as HTMLElement
     );
   }
   return null;
 };
 
-export { Modal, ModalButton, ModalContext, ModalContent };
+export { Modal };
