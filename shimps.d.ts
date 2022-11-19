@@ -8,37 +8,6 @@ type IUserLoginData = {
   password: IUserLoginType;
 };
 
-type TUser = {
-  id: number;
-  username: string;
-  password: string;
-  tasks: ITask[];
-  email: string;
-  created_at: string;
-};
-
-type TInputs =
-  | "text"
-  | "password"
-  | "email"
-  | "number"
-  | "tel"
-  | "url"
-  | "search"
-  | "color"
-  | "date"
-  | "datetime-local"
-  | "time"
-  | "month"
-  | "week";
-
-type FormField = {
-  textArea?: boolean;
-  type: TInputs;
-  name: string;
-  placeholder: string;
-  label: string;
-};
 
 interface TDataSendLogin {
   email: string;
@@ -89,12 +58,6 @@ interface IStore {
   auth: IAuth;
 }
 
-interface IAviableLenguages {
-  [key: string]: boolean;
-}
-
-type TRouteNames = "/" | "/Login" | "/Signin" | "/Logout" | "/Tasks/[user]";
-
 interface IRouteProperties {
   protect: boolean;
   name: string;
@@ -102,20 +65,70 @@ interface IRouteProperties {
   accessWithToken?: boolean;
 }
 
-type TRoutes = {
-  [key: TRouteNames]: IRouteProperties;
+export interface ModalProps {
+  component?: React.FC<any>;
+  props?: { [key: string]: unknown };
+  isVisible?: boolean;
+  closable?: boolean;
+  onClose?: Function;
+  closeModal?: Function;
+  width?: number;
+  title?: string;
+  className?: string;
+  enableBottomSheet?: boolean;
+  fullScreen?: boolean;
+  closeIcon?: boolean;
+  headingClassName?: boolean;
+  headingComponent?: React.FC<any>;
+  bottomSheetFooter?: React.FC<any>;
+  bottomSheetClassName?: string;
+  modalFooter?: JSX.Element[];
+  closeable?: boolean;
+  centered?: boolean;
+}
+//types for confirmation modals
+export interface ConfirmationModalProps {
+  title?: string;
+  message?: string;
+  onCancel?: Function;
+  onOkay?: Function;
+  cancelLabel?: string;
+  okayLabel?: string;
+  isHeading?: string;
+  isBackdropCloseable?: boolean;
+  closable?: boolean;
+}
+//types for async confirmation modals
+export interface AsyncConfirmationModalProps {
+  title?: string;
+  message?: string;
+  cancelLabel?: string;
+  okayLabel?: string;
+  closable?: boolean;
+}
+
+declare type FormField = {
+  textArea?: boolean;
+  type: TInputs;
+  name: string;
+  placeholder: string;
+  label: string;
 };
 
-type TTask = {
-  id: number;
-  title: string;
-  description: string;
-  completed: boolean;
-  userId: number;
-  updated_at: string;
-  created_at: string;
-  owner: TUser;
-};
+declare type TInputs =
+  | "text"
+  | "password"
+  | "email"
+  | "number"
+  | "tel"
+  | "url"
+  | "search"
+  | "color"
+  | "date"
+  | "datetime-local"
+  | "time"
+  | "month"
+  | "week";
 
 type TButtons =
   | "primary"

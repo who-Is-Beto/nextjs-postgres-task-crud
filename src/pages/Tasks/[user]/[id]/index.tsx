@@ -59,17 +59,18 @@ const Task: NextPage<{ task: Task }> = ({ task }): JSX.Element => {
             })}
           </span>
         </div>
-        {task.dateToComplete && ( 
+        {task.dateToComplete && (
           <div>
             <strong> Date to complete:</strong>{" "}
-          <span>
-            {new Date(task.dateToComplete as Date).toLocaleDateString("en-US")}
-          </span>
+            <span>{new Date(task.dateToComplete as Date).toLocaleDateString("en-US")}</span>
           </div>
-         )}
+        )}
         <p className={SingleTaskStyles.task__description}>
-          <p><strong>Task: </strong></p>
-          {task.description}</p>
+          <p>
+            <strong>Task: </strong>
+          </p>
+          {task.description}
+        </p>
         <div className={SingleTaskStyles.task__edit}>
           <Button href={`/Tasks/${user}/edit/${task.id}`} type="info">
             <GrEdit />
