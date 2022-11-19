@@ -24,7 +24,6 @@ const Modal: React.FC<{
       <dialog open={isOpen as boolean}>
         <div className={Styles.modalBackground}></div>
         <div ref={ModalRef} className={Styles.modal}>
-          <button className={Styles.modal__closeButton}>X</button>
           {isOpen && children}
         </div>
       </dialog>,
