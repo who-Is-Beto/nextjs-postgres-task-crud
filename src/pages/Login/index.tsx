@@ -35,23 +35,25 @@ const Login: NextPage = (): JSX.Element => {
       {/* <LoginImage /> */}
       {error && <h1>ERRORR</h1>}
       <h1 className={Styles.title}>Log In</h1>
-      <Form
-        formFields={formFields}
-        formErrors={formErrors}
-        formData={formValues}
-        handleChange={handleChange}
-      />
-      <small>
-        Don&apos;t you have account?{" "}
-        <Link href={"/Signin"}>
-          <a className={Styles.signinLink}>Sign in</a>
-        </Link>
-        !
-      </small>
-      <div className={Styles.buttonContainer}>
-        <Button type="primary" onClIick={handleSubmit}>
-          Login <RiLoginBoxFill />
-        </Button>
+      <div className={Styles.formContainer}>
+        <Form
+          formFields={formFields}
+          formErrors={formErrors}
+          formData={formValues}
+          handleChange={handleChange}
+        />
+        <div className={Styles.buttonContainer}>
+          <small>
+            Don&apos;t you have account?{" "}
+            <Link href={"/Signin"}>
+              <a className={Styles.signinLink}>Sign in</a>
+            </Link>
+            !
+          </small>
+          <Button type="primary" onClIick={handleSubmit}>
+            Login <RiLoginBoxFill />
+          </Button>
+        </div>
       </div>
     </div>
   );

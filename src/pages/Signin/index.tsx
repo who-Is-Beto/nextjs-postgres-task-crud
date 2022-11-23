@@ -7,7 +7,7 @@ import { userFromRequest } from "@/web/tokens";
 import { GetServerSidePropsContext, NextPage } from "next";
 import Link from "next/link";
 import { useEffect } from "react";
-import Styles from "../Login/login.module.css";
+import Styles from "./Signin.module.css";
 import signinFormFields from "../../utils/signinFormFields";
 import signinValidations from "../../utils/signinValidations";
 
@@ -31,26 +31,28 @@ const SignIn: NextPage = (): JSX.Element => {
     }
   }, [data, refreshServer]);
   return (
-    <div className={Styles.login}>
+    <div className={Styles.container}>
       {error && <h1>ERRORR</h1>}
-      <h1 className={Styles.title}>Sign In</h1>
-      <Form
-        formFields={signinFormFields}
-        formErrors={formErrors}
-        formData={formValues}
-        handleChange={handleChange}
-      />
-      <small>
-        You already have an account?{" "}
-        <Link href={"/Login"}>
-          <a className={Styles.signinLink}>Log in</a>
-        </Link>
-        !
-      </small>
-      <div className={Styles.buttonContainer}>
-        <Button type="primary" onClIick={handleSubmit}>
-          Create account
-        </Button>
+      <h1 className={`green ${Styles.title}`}>Sign In</h1>
+      <div>
+        <Form
+          formFields={signinFormFields}
+          formErrors={formErrors}
+          formData={formValues}
+          handleChange={handleChange}
+        />
+        <div className={Styles.buttonContainer}>
+          <small>
+            You already have an account?{" "}
+            <Link href={"/Login"}>
+              <a className={Styles.loginlink}>Log in</a>
+            </Link>
+            !
+          </small>
+          <Button type="primary" onClIick={handleSubmit}>
+            Create account
+          </Button>
+        </div>
       </div>
     </div>
   );
