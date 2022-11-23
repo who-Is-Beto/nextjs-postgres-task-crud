@@ -31,7 +31,7 @@ const UserPage: NextPage<{ user: User }> = ({ user }): JSX.Element => {
 
       <div className={userStyles.userOptions}>
         <div>
-          <h2 className={userStyles.userOptions__title}>Change your data</h2>
+          <h3 className={userStyles.userOptions__title}>Change your data</h3>
         </div>
         <div>
           <Form
