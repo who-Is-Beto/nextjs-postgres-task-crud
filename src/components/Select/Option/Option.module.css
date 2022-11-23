@@ -9,6 +9,5 @@
 
 .option:hover {
   color: var(--lightGreen);
-
   background-color: var(--lightTerciary);
 }
