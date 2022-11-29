@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@/components/Button/Button";
 import Form from "@/components/Form/Form";
 import Link from "next/link";
@@ -11,9 +11,12 @@ import useForm from "../../hooks/useForm";
 import loginValidations from "../../utils/validations";
 import formFields from "../../utils/formFields";
 import { useServerRefresher } from "@/hooks/useServerRefresher";
+import ErrorMessenger from "@/components/Error/ErrorMessage";
+import { SerializedError } from "@reduxjs/toolkit";
 
 const Login: NextPage = (): JSX.Element => {
   const [loginUser, { error, data }] = useLoginUserMutation();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const refreshServer = useServerRefresher();
   const { handleChange, handleSubmit, formValues, formErrors } = useForm(
     {
@@ -25,6 +28,14 @@ const Login: NextPage = (): JSX.Element => {
   );
 
   useEffect(() => {
+    if (error && "status" in error) {
+      setErrorMessage(
+        "error" in error ? error.error : JSON.stringify((error.data as SerializedError).message)
+      );
+    }
+  }, [error]);
+
+  useEffect(() => {
     if (data) {
       refreshServer();
     }
@@ -33,7 +44,6 @@ const Login: NextPage = (): JSX.Element => {
   return (
     <div className={Styles.login}>
       {/* <LoginImage /> */}
-      {error && <h1>ERRORR</h1>}
       <h1 className={Styles.title}>Log In</h1>
       <div className={Styles.formContainer}>
         <Form
@@ -53,6 +63,7 @@ const Login: NextPage = (): JSX.Element => {
           <Button type="primary" onClIick={handleSubmit}>
             Login <RiLoginBoxFill />
           </Button>
+          {errorMessage && <ErrorMessenger message={errorMessage} />}
         </div>
       </div>
     </div>
