@@ -3,6 +3,7 @@ import { Modal } from "@/components/Modal";
 import DeleteTask from "@/components/Modal/DeleteTask";
 import TaskCard from "@/components/TaskCrard";
 import { useGetTasksByUserIdQuery } from "@/store/services/TasksService";
+import ErrorView from "@/views/ErrorView";
 import { userFromRequest } from "@/web/tokens";
 import { Task, User } from "@prisma/client";
 import { GetServerSidePropsContext, NextPage } from "next";
@@ -43,9 +44,10 @@ const Tasks: NextPage<{ user: User }> = ({ user }): JSX.Element => {
         Hello <span className={taskStyles.userGreeting__name}>{user.username}</span>!
       </h1>
       {isLoading && <p>Loading...</p>}
-      {!isLoading && data && (
+      {!isLoading && !data?.tasks?.length && <ErrorView message="You dont have any task yet :c" />}
+      {!isLoading && data?.tasks && (
         <div className={taskStyles.tasks} onScroll={handleScroll}>
-          {data.tasks?.map((task) => (
+          {data?.tasks.map((task) => (
             <TaskCard
               handleModal={handleModal}
               key={task.id}
