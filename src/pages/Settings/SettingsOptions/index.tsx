@@ -21,7 +21,10 @@ const SettingsOption: React.FC<{
     <div className={SettingOptionStyle.settingOptionContainer}>
       <span className={SettingOptionStyle.optionLabel}>{label}:</span>
       {typeof value === "boolean" ? (
-        <Switch handleChange={setDarkMode} value={value} id={label} />
+        <>
+          {value}
+          <Switch handleChange={setDarkMode} value={value} id={label} />
+        </>
       ) : (
         <>
           <Select selectHandler={handleSelectLenguage} placeholder="Select a lenguage">

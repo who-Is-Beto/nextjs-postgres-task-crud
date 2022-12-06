@@ -1,7 +1,8 @@
 import React from "react";
+import Styles from "./errorMessage.module.css";
 
-const ErrorMessenger: React.FC<{ message: string }> = ({ message }): JSX.Element => {
-  return <div>{message}</div>;
+const ErrorMessenge: React.FC<{ message: string }> = ({ message }): JSX.Element => {
+  return <strong className={Styles.message}>{message}</strong>;
 };
 
-export default ErrorMessenger;
+export default ErrorMessenge;

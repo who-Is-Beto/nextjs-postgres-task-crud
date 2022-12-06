@@ -11,7 +11,7 @@ import useForm from "../../hooks/useForm";
 import loginValidations from "../../utils/validations";
 import formFields from "../../utils/formFields";
 import { useServerRefresher } from "@/hooks/useServerRefresher";
-import ErrorMessenger from "@/components/Error/ErrorMessage";
+import ErrorMessenge from "@/components/Error/ErrorMessage";
 import { SerializedError } from "@reduxjs/toolkit";
 
 const Login: NextPage = (): JSX.Element => {
@@ -30,7 +30,7 @@ const Login: NextPage = (): JSX.Element => {
   useEffect(() => {
     if (error && "status" in error) {
       setErrorMessage(
-        "error" in error ? error.error : JSON.stringify((error.data as SerializedError).message)
+        "error" in error ? error.error : ((error.data as SerializedError).message as string)
       );
     }
   }, [error]);
@@ -63,7 +63,7 @@ const Login: NextPage = (): JSX.Element => {
           <Button type="primary" onClIick={handleSubmit}>
             Login <RiLoginBoxFill />
           </Button>
-          {errorMessage && <ErrorMessenger message={errorMessage} />}
+          {errorMessage && <ErrorMessenge message={errorMessage} />}
         </div>
       </div>
     </div>
