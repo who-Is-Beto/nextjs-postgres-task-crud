@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { TButtons } from "shimps";
 import ButtonStyle from "./button.module.css";
+
 type TPropsButton = {
   onClIick?: (event: React.SyntheticEvent) => void;
   type: TButtons;

@@ -12,7 +12,7 @@ export default function Document(): JSX.Element {
         <link rel="apple-touch-icon" href="/favicon.png" />
         <link rel="icon" href="/favicon.png" /> */}
       </Head>
-      <body>
+      <body className="body">
         <Main />
         <NextScript />
         <div id="modal"></div>

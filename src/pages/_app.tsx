@@ -3,16 +3,17 @@ import { Provider } from "react-redux";
 import { store } from "../store";
 import Navbar from "@/components/Navbar";
 import "../styles/globals.css";
+import Layout from "@/components/Layout";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
-      <div className="layout">
+      <Layout>
         <Navbar />
         <div className="pageContainer">
           <Component {...pageProps} />
         </div>
-      </div>
+      </Layout>
     </Provider>
   );
 }

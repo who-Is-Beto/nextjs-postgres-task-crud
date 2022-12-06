@@ -1,0 +1,4 @@
+.message {
+  color: var(--danger);
+  text-align: center;
+}

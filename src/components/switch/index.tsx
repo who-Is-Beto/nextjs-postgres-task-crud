@@ -8,8 +8,14 @@ const Switch: React.FC<{ handleChange: () => void; value: boolean; id: string }>
 }): JSX.Element => {
   return (
     <>
-      <input className={SwitchStyles.checkbox} defaultChecked={value} type="checkbox" id={id} />
-      <label className={SwitchStyles.switch} onClick={handleChange} htmlFor={id}></label>
+      <input
+        className={SwitchStyles.checkbox}
+        onChange={handleChange}
+        checked={value}
+        type="checkbox"
+        id={id}
+      />
+      <label className={SwitchStyles.switch} htmlFor={id}></label>
     </>
   );
 };

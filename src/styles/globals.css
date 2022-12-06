@@ -1,17 +1,39 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap");
 
-:root {
+.darkMode {
   --darkPrimary: #222831;
 
   --lightPrimary: #98c1d9;
   --lightSecondary: #3c415c;
   --lightTerciary: #30475e;
 
+  --inputbackground: #dedef6;
+
   --lightGreen: #bee5bf;
   --tealBlue: #e8f0fe;
   --lightOrange: #ffd1ba;
 
   --danger: #ff8dac;
+
+  --shadow: 0 0.5rem 1.6rem rgba(0, 0, 0, 0.2);
+  --inputShadow: 0px 2px 5px 1px var(--lightTerciary);
+  --pageMinHeight: calc(100vh - 8rem);
+}
+
+.lightMode {
+  --darkPrimary: #f5eddc;
+
+  --lightPrimary: #98c1d9;
+  --lightSecondary: #cfd2cf;
+  --lightTerciary: #678983;
+
+  --inputbackground: #f5eddc;
+
+  --lightGreen: #006703;
+  --tealBlue: #2b2b2b;
+  --lightOrange: #ffd1ba;
+
+  --danger: #eb1d36;
 
   --shadow: 0 0.5rem 1.6rem rgba(0, 0, 0, 0.2);
   --inputShadow: 0px 2px 5px 1px var(--lightTerciary);
@@ -33,6 +55,10 @@ svg {
 
 body {
   min-height: 100vh;
+  background-color: transparent;
+}
+
+main {
   background: var(--darkPrimary);
 }
 
