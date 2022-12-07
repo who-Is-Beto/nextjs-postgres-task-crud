@@ -1,6 +1,5 @@
 import React, { ReactNode, useEffect, useRef, useState } from "react";
 import { SelectContext } from "./SelectContext";
-import { useDispatch } from "react-redux";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { AiFillCaretDown } from "react-icons/ai";
 import SelectStyles from "./Select.module.css";
@@ -11,7 +10,6 @@ const Select: React.FC<{
   placeholder?: string;
   selectHandler?: (value: any) => void;
 }> = ({ children, defaultValue, placeholder, selectHandler }): JSX.Element => {
-  const dispatch = useDispatch();
   const [selectedOption, setSelectedOption] = useState<string>(defaultValue || "");
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const handleShowDropdown = (): void => setShowDropdown(!showDropdown);
@@ -31,7 +29,7 @@ const Select: React.FC<{
     if (selectedOption && selectHandler) {
       selectHandler(selectedOption);
     }
-  }, [selectedOption, selectHandler, dispatch]);
+  }, [selectedOption, selectHandler]);
 
   return (
     <SelectContext.Provider
@@ -40,8 +38,8 @@ const Select: React.FC<{
         changeSelectedOption: updateSelectedOption
       }}
     >
-      <div className={SelectStyles.select} ref={selectContainerRef}>
-        <span className={SelectStyles.selectSpan} onClick={handleShowDropdown}>
+      <div className={SelectStyles.select} onClick={handleShowDropdown} ref={selectContainerRef}>
+        <span className={SelectStyles.selectSpan}>
           {selectedOption.length > 0 ? selectedOption : selectPlaceholder}
           <AiFillCaretDown
             className={`${SelectStyles.selectIcon} ${showDropdown ? "rotate" : ""}`}
