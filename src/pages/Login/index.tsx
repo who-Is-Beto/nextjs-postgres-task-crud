@@ -45,7 +45,7 @@ const Login: NextPage = (): JSX.Element => {
 
   return (
     <div className={Styles.login}>
-      <Toast status="error">
+      <Toast status="success">
         <ToastIcon />
       </Toast>
       <h1 className={Styles.title}>Log In</h1>

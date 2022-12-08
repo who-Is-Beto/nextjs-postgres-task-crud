@@ -6,7 +6,7 @@ const Toast: React.FC<{ children: ReactNode; status: ToastStatus }> & { ToastIco
   children,
   status
 }): JSX.Element => {
-  const [toastShow, setToastShow] = useState<boolean>(false);
+  const [toastShow, setToastShow] = useState<boolean>(true);
   const handleShow = (show: boolean) => {
     setToastShow(show);
   };
