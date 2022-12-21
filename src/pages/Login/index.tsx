@@ -13,8 +13,6 @@ import formFields from "../../utils/formFields";
 import { useServerRefresher } from "@/hooks/useServerRefresher";
 import ErrorMessenge from "@/components/Error/ErrorMessage";
 import { SerializedError } from "@reduxjs/toolkit";
-import Toast from "@/components/Toast";
-import ToastIcon from "@/components/Toast/ToastIcon";
 
 const Login: NextPage = (): JSX.Element => {
   const [loginUser, { error, data }] = useLoginUserMutation();
@@ -45,9 +43,6 @@ const Login: NextPage = (): JSX.Element => {
 
   return (
     <div className={Styles.login}>
-      <Toast status="success">
-        <ToastIcon />
-      </Toast>
       <h1 className={Styles.title}>Log In</h1>
       <div className={Styles.formContainer}>
         <Form

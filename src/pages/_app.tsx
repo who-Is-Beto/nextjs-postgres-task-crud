@@ -12,6 +12,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Navbar />
         <div className="pageContainer">
           <Component {...pageProps} />
+          <div id="toast"></div>
+          <div id="modal"></div>
         </div>
       </Layout>
     </Provider>

@@ -20,7 +20,7 @@ const Select: React.FC<{
   const handleClickOutSide = () => setShowDropdown(false);
 
   useOnClickOutside(selectContainerRef, handleClickOutSide);
-  const updateSelectedOption = (option: string) => {
+  const updateSelectedOption = (option: string): void => {
     setSelectedOption(option);
     setShowDropdown(false);
   };
