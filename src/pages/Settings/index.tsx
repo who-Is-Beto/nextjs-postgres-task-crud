@@ -12,6 +12,7 @@ import { useServerRefresher } from "@/hooks/useServerRefresher";
 import { userFromRequest } from "@/web/tokens";
 import { User } from "@prisma/client";
 import UnAuth from "@/components/unaAuth";
+import { ShowToast } from "@/components/Toast";
 
 const Settings: React.FC<{ user: User }> = ({ user }): JSX.Element => {
   const globalSettings = useSelector((state: { app: IStore }) => state.app.config);
@@ -32,6 +33,10 @@ const Settings: React.FC<{ user: User }> = ({ user }): JSX.Element => {
       refreshServer();
     }
   }, [data, refreshServer]);
+
+  useEffect((): void => {
+    ShowToast({ label: "Logout", type: "success" });
+  }, []);
 
   return (
     <>

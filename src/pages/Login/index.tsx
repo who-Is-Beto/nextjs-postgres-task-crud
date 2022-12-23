@@ -43,7 +43,6 @@ const Login: NextPage = (): JSX.Element => {
 
   return (
     <div className={Styles.login}>
-      {/* <LoginImage /> */}
       <h1 className={Styles.title}>Log In</h1>
       <div className={Styles.formContainer}>
         <Form

@@ -15,7 +15,6 @@ export default function Document(): JSX.Element {
       <body className="body">
         <Main />
         <NextScript />
-        <div id="modal"></div>
       </body>
     </Html>
   );
