@@ -35,7 +35,7 @@ const Settings: React.FC<{ user: User }> = ({ user }): JSX.Element => {
   }, [data, refreshServer]);
 
   useEffect((): void => {
-    ShowToast({ label: "Logout", type: "error" });
+    ShowToast({ label: "Logout", type: "success" });
   }, []);
 
   return (

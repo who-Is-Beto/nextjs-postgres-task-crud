@@ -1,5 +1,4 @@
 import React, { SyntheticEvent, useEffect, useRef, useState } from "react";
-import { unmountComponentAtNode } from "react-dom";
 import { createRoot } from "react-dom/client";
 import Styles from "./toast.module.css";
 
@@ -24,7 +23,7 @@ export const HideToast = (documentId: string = TOAST_CONTAINER_ID): void => {
   root.unmount();
 };
 
-const TOAST_TIME_MS = 3000000 as const;
+const TOAST_TIME_MS = 3000 as const;
 
 const Toast: React.FC<ToastProperties> = (props): JSX.Element => {
   const toast = useRef<HTMLOutputElement>(null);
