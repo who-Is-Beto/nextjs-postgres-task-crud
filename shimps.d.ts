@@ -3,11 +3,13 @@ import { Interface } from "readline";
 
 type TaskTates = "pending" | "in progress" | "done";
 
+type TLenguages = "spanish" | "english";
+type TIncomingTime = "today" | "next 3 days" | "this week" | "this month" | "next month" | "all";
+
 type IUserLoginData = {
   email: IUserLoginType;
   password: IUserLoginType;
 };
-
 
 interface TDataSendLogin {
   email: string;
@@ -42,20 +44,14 @@ declare type IResponse = {
   error?: string;
 };
 
-type TLenguages = "spanish" | "english";
-
-interface IAuth {
-  token: boolean;
-}
-
 interface IUserConfig {
   lenguage: TLenguages;
   darkMode: boolean;
+  incomingTime: TIncomingTime;
 }
 
 interface IStore {
   config: IUserConfig;
-  auth: IAuth;
 }
 
 interface IRouteProperties {

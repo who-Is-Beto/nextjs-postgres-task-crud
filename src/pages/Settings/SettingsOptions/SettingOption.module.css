@@ -1,11 +1,17 @@
 .settingOptionContainer {
+  display: grid;
+  row-gap: 1.5rem;
+}
+
+.settingOptionItem {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
-  text-transform: capitalize;
+  gap: 2rem;
+  justify-content: space-between;
 }
 
 .optionLabel {
+  max-width: 8rem;
   font-weight: bold;
 }

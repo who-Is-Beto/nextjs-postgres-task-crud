@@ -45,14 +45,7 @@ const Settings: React.FC<{ user: User }> = ({ user }): JSX.Element => {
           <div>
             <h1 className={`textRight pageTitle ${SettingOptionStyle.settingTitle}`}>Settings</h1>
             <div className="setting-item">
-              {Object.entries(globalSettings).map(([key, value]) => (
-                <SettingsOption
-                  key={key}
-                  setDarkMode={handleChangeTheme}
-                  label={key}
-                  value={value}
-                />
-              ))}
+              <SettingsOption globalSettings={globalSettings} setDarkMode={handleChangeTheme} />
             </div>
           </div>
 
