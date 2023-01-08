@@ -29,12 +29,13 @@
 
 .selectList {
   position: absolute;
-  overflow: hidden;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   list-style: none;
   top: 120%;
+  max-height: 10rem;
   left: 0;
   width: 100%;
   background-color: var(--darkPrimary);
