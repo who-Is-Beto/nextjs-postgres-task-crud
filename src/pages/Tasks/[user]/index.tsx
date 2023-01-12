@@ -1,4 +1,5 @@
 import Button from "@/components/Button/Button";
+import Loader from "@/components/Loader";
 import { Modal } from "@/components/Modal";
 import DeleteTask from "@/components/Modal/DeleteTask";
 import TaskCard from "@/components/TaskCrard";
@@ -41,10 +42,13 @@ const Tasks: NextPage<{ user: User }> = ({ user }): JSX.Element => {
   return (
     <div className={taskStyles.taskPage}>
       <h1 className={taskStyles.userGreeting}>
-        Hello <span className={taskStyles.userGreeting__name}>{user.username}</span>!
+        Hello{" "}
+        <span className={taskStyles.userGreeting__name}>{user.username}</span>!
       </h1>
-      {isLoading && <p>Loading...</p>}
-      {!isLoading && !data?.tasks?.length && <ErrorView message="You dont have any task yet :c" />}
+      {isLoading && <Loader type="bars" />}
+      {!isLoading && !data?.tasks?.length && (
+        <ErrorView message="You dont have any task yet :c" />
+      )}
       {!isLoading && data?.tasks && (
         <div className={taskStyles.tasks} onScroll={handleScroll}>
           {data?.tasks.map((task) => (

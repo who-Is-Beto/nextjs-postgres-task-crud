@@ -1,5 +1,6 @@
 import Button from "@/components/Button/Button";
 import Form from "@/components/Form/Form";
+import Loader from "@/components/Loader";
 import useForm from "@/hooks/useForm";
 import taskFields from "@/utils/taskFields";
 import taskFieldValidations from "@/utils/taskFieldsValidations";
@@ -23,7 +24,13 @@ const TaskView: React.FC<{
   mutation: MutationTrigger<
     MutationDefinition<
       any,
-      BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>,
+      BaseQueryFn<
+        string | FetchArgs,
+        unknown,
+        FetchBaseQueryError,
+        {},
+        FetchBaseQueryMeta
+      >,
       never,
       IResponse,
       "services"
@@ -71,9 +78,13 @@ const TaskView: React.FC<{
       <h1 className={createStyles.create__title}>
         {title} <span className="green">{greenText}</span>
       </h1>
-      {isError && <p>There was an error creating your task, please try again later.</p>}
-      {isLoading && <p className={createStyles.create__loading}>Loading...</p>}
-      {isSuccess && <p className={createStyles.create__success}>Task created!</p>}
+      {isError && (
+        <p>There was an error creating your task, please try again later.</p>
+      )}
+      {isLoading && <Loader type="bars" />}
+      {isSuccess && (
+        <p className={createStyles.create__success}>Task created!</p>
+      )}
       {!isLoading && !isSuccess && (
         <>
           <Form

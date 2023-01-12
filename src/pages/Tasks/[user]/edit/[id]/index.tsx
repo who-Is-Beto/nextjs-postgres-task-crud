@@ -3,29 +3,29 @@ import { useUpdateTaskMutation } from "@/store/services/TasksService";
 import TaskView from "@/views/TaskView";
 import { getTask } from "@/lib/tasks";
 import { Task } from "@prisma/client";
+import Loader from "@/components/Loader";
 
-const EditTask: NextPage<{task: Task}> = ({task}): JSX.Element => {
+const EditTask: NextPage<{ task: Task }> = ({ task }): JSX.Element => {
   const [editTask, { isLoading, isSuccess, isError }] = useUpdateTaskMutation();
 
   return (
-
     <>
-    {!task && <h1>Loading...</h1>}
-    {task && <TaskView
-    title="Edit your"
-    greenText="Task!"
-    buttonLabel="Edit task"
-    isError={isError}
-    isSuccess={isSuccess}
-    isLoading={isLoading}
-    mutation={editTask}
-    task={task}
-    />}
+      {!task && <Loader type="bars" />}
+      {task && (
+        <TaskView
+          title="Edit your"
+          greenText="Task!"
+          buttonLabel="Edit task"
+          isError={isError}
+          isSuccess={isSuccess}
+          isLoading={isLoading}
+          mutation={editTask}
+          task={task}
+        />
+      )}
     </>
-    )
-  
+  );
 };
-
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   try {

@@ -12,11 +12,14 @@ import { taskStates } from "@/constants";
 import { TaskTates } from "shimps";
 import { useUpdateTaskMutation } from "@/store/services/TasksService";
 import { GrEdit } from "react-icons/gr";
+import Loader from "@/components/Loader";
 
 const Task: NextPage<{ task: Task }> = ({ task }): JSX.Element => {
   const router = useRouter();
   const [updateTask] = useUpdateTaskMutation();
-  const [taskStatus, setTaskStatus] = useState<TaskTates>(task.status as TaskTates);
+  const [taskStatus, setTaskStatus] = useState<TaskTates>(
+    task.status as TaskTates
+  );
   const { user } = router.query;
 
   const handleGoBack = () => {
@@ -28,7 +31,7 @@ const Task: NextPage<{ task: Task }> = ({ task }): JSX.Element => {
   }, [taskStatus, task, updateTask]);
 
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <Loader type="bars" />;
   }
 
   return (
@@ -62,7 +65,11 @@ const Task: NextPage<{ task: Task }> = ({ task }): JSX.Element => {
         {task.dateToComplete && (
           <div>
             <strong> Date to complete:</strong>{" "}
-            <span>{new Date(task.dateToComplete as Date).toLocaleDateString("en-US")}</span>
+            <span>
+              {new Date(task.dateToComplete as Date).toLocaleDateString(
+                "en-US"
+              )}
+            </span>
           </div>
         )}
         <p className={SingleTaskStyles.task__description}>
