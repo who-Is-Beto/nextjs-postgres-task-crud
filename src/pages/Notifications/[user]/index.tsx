@@ -1,3 +1,4 @@
+import Loader from "@/components/Loader";
 import Notification from "@/components/Notification";
 import { useGetTasksByUserIdQuery } from "@/store/services/TasksService";
 import ErrorView from "@/views/ErrorView";
@@ -8,7 +9,9 @@ import React from "react";
 import Styles from "./NotificationUser.module.css";
 
 const UserNotifications: NextPage<{ user: User }> = ({ user }): JSX.Element => {
-  const { data, isLoading, isSuccess } = useGetTasksByUserIdQuery({ userId: user.id });
+  const { data, isLoading, isSuccess } = useGetTasksByUserIdQuery({
+    userId: user.id
+  });
   const incomingTasks = data?.tasks?.filter(
     (task: Task) => new Date(task.dateToComplete as Date) >= new Date()
   );
@@ -28,7 +31,7 @@ const UserNotifications: NextPage<{ user: User }> = ({ user }): JSX.Element => {
           ))}
         </div>
       )}
-      {isLoading && <h1>Loading...</h1>}
+      {isLoading && <Loader type="bars" />}
     </div>
   );
 };
