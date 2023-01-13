@@ -17,9 +17,7 @@ import Loader from "@/components/Loader";
 const Task: NextPage<{ task: Task }> = ({ task }): JSX.Element => {
   const router = useRouter();
   const [updateTask] = useUpdateTaskMutation();
-  const [taskStatus, setTaskStatus] = useState<TaskTates>(
-    task.status as TaskTates
-  );
+  const [taskStatus, setTaskStatus] = useState<TaskTates | null>(null);
   const { user } = router.query;
 
   const handleGoBack = () => {
@@ -27,7 +25,7 @@ const Task: NextPage<{ task: Task }> = ({ task }): JSX.Element => {
   };
 
   useEffect(() => {
-    updateTask({ ...task, status: taskStatus });
+    updateTask({ ...task, status: taskStatus as TaskTates });
   }, [taskStatus, task, updateTask]);
 
   if (router.isFallback) {
