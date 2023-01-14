@@ -18,3 +18,15 @@
   border-radius: 0.2rem;
   padding: 0.2rem 0.2rem 0;
 }
+
+@media (min-width: 768px) {
+  .options {
+    flex-direction: column;
+    height: 100%;
+    padding: 2rem 0;
+  }
+  .optionsIconActive {
+    bottom: 0;
+    left: 1rem;
+  }
+}

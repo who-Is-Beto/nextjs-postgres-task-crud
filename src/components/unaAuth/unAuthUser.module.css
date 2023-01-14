@@ -1,9 +1,19 @@
 .unauth {
   height: 100%;
-  display: flex;
-  flex-direction: column;
+  width: 80%;
+  display: grid;
   text-align: center;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 3rem;
+  place-items: center;
+  gap: 1rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .unauthContents {
+    width: 60%;
+    display: inherit;
+    gap: 1rem;
+    place-items: center;
+    padding-bottom: 12rem;
+  }
 }

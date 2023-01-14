@@ -6,13 +6,17 @@ import { useCreateUserMutation } from "@/store/services/UsersService";
 import { userFromRequest } from "@/web/tokens";
 import { GetServerSidePropsContext, NextPage } from "next";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Styles from "./Signin.module.css";
 import signinFormFields from "../../utils/signinFormFields";
 import signinValidations from "../../utils/signinValidations";
+import { SerializedError } from "@reduxjs/toolkit";
+import ErrorMessenge from "@/components/Error/ErrorMessage";
+import LoginImage from "../../assets/images/login.svg";
 
 const SignIn: NextPage = (): JSX.Element => {
   const [createUser, { error, data }] = useCreateUserMutation();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const refreshServer = useServerRefresher();
   const { formErrors, formValues, handleChange, handleSubmit } = useForm(
     {
@@ -30,11 +34,23 @@ const SignIn: NextPage = (): JSX.Element => {
       refreshServer();
     }
   }, [data, refreshServer]);
+
+  useEffect(() => {
+    if (error && "status" in error) {
+      setErrorMessage(
+        "error" in error
+          ? error.error
+          : ((error.data as SerializedError).message as string)
+      );
+    }
+  }, [error]);
   return (
     <div className={Styles.container}>
-      {error && <h1>ERRORR</h1>}
-      <h1 className={`green ${Styles.title}`}>Sign In</h1>
-      <div>
+      <div className={Styles.signinImage}>
+        <LoginImage />
+      </div>
+      <div className={Styles.signin}>
+        <h1 className={`green ${Styles.title}`}>Sign In</h1>
         <Form
           formFields={signinFormFields}
           formErrors={formErrors}
@@ -45,13 +61,14 @@ const SignIn: NextPage = (): JSX.Element => {
           <small>
             You already have an account?{" "}
             <Link href={"/Login"}>
-              <a className={Styles.loginlink}>Log in</a>
+              <a className={Styles.signinLink}>Log in</a>
             </Link>
             !
           </small>
           <Button type="primary" onClIick={handleSubmit}>
             Create account
           </Button>
+          {errorMessage && <ErrorMessenge message={errorMessage} />}
         </div>
       </div>
     </div>

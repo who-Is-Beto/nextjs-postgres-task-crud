@@ -11,6 +11,10 @@
   width: 95%;
 }
 
+.loginImage {
+  display: none;
+}
+
 .title {
   text-align: right;
   width: 100%;
@@ -27,4 +31,25 @@
   margin-top: 1rem;
   row-gap: 1rem;
   width: 100%;
+}
+
+@media (min-width: 768px) {
+  .login {
+    display: grid;
+    max-height: 52%;
+    place-items: center;
+  }
+  .loginImage {
+    display: block;
+    text-align: end;
+  }
+  .loginContainer {
+    column-gap: 14rem;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
