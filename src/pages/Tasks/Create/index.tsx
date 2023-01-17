@@ -1,9 +1,5 @@
-import Button from "@/components/Button/Button";
-import Form from "@/components/Form/Form";
-import useForm from "@/hooks/useForm";
+import { ShowToast } from "@/components/Toast";
 import { useCreateTaskMutation } from "@/store/services/TasksService";
-import taskFields from "@/utils/taskFields";
-import taskFieldValidations from "@/utils/taskFieldsValidations";
 import TaskView from "@/views/TaskView";
 import { userFromRequest } from "@/web/tokens";
 import { User } from "@prisma/client";
@@ -13,23 +9,19 @@ import React, { useEffect } from "react";
 
 const TaskCreate: NextPage<{ user: User }> = ({ user }): JSX.Element => {
   const router = useRouter();
-  const [createTask, { isLoading, isSuccess, isError }] = useCreateTaskMutation();
-  const { formErrors, formValues, handleChange, handleSubmit } = useForm(
-    {
-      title: "",
-      description: "",
-      dateToComplete: ""
-    },
-    taskFieldValidations,
-    createTask
-  );
-
+  const [createTask, { isLoading, isSuccess, isError, error }] =
+    useCreateTaskMutation();
   useEffect(() => {
-    setTimeout(() => {
-      if (isSuccess) {
+    if (isSuccess) {
+      ShowToast({ label: "Task Crated c:", type: "success" });
+      setTimeout(() => {
         router.push(`/Tasks/${user.username}`);
-      }
-    }, 1000);
+      }, 1000);
+      return;
+    }
+    if (isError) {
+      ShowToast({ label: `${error} :c`, type: "error" });
+    }
   }, [isSuccess]);
   return (
     <TaskView

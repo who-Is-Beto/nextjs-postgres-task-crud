@@ -115,3 +115,18 @@ a {
 .upsideDown {
   transform: rotate(-180deg);
 }
+
+@media (min-width: 768px) {
+  .layout {
+    padding: 1rem;
+    min-height: 100vh;
+    grid-template-areas:
+      "header content content"
+      "header content content";
+    grid-template-rows: 1fr;
+    grid-template-columns: 3rem calc(100vw - 6rem);
+  }
+  .pageContainer {
+    max-width: calc(100vw - 6rem);
+  }
+}

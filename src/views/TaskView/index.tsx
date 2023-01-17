@@ -18,6 +18,7 @@ import React from "react";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { IResponse } from "shimps";
 import createStyles from "./create.module.css";
+import TaskCard from "@/components/TaskCrard";
 
 const TaskView: React.FC<{
   isError: boolean;
@@ -43,9 +44,7 @@ const TaskView: React.FC<{
   greenText?: string;
   task?: Task;
 }> = ({
-  isError,
   isLoading,
-  isSuccess,
   mutation,
   buttonLabel,
   title,
@@ -68,7 +67,7 @@ const TaskView: React.FC<{
   };
 
   return (
-    <div>
+    <>
       <div className={createStyles.back}>
         <Button onClIick={handleGoBack} type="primary">
           <IoArrowBackSharp />
@@ -78,27 +77,24 @@ const TaskView: React.FC<{
       <h1 className={createStyles.create__title}>
         {title} <span className="green">{greenText}</span>
       </h1>
-      {isError && (
-        <p>There was an error creating your task, please try again later.</p>
-      )}
-      {isLoading && <Loader type="bars" />}
-      {isSuccess && (
-        <p className={createStyles.create__success}>Task created!</p>
-      )}
-      {!isLoading && !isSuccess && (
-        <>
-          <Form
-            formFields={taskFields}
-            formErrors={formErrors}
-            formData={formValues}
-            handleChange={handleChange}
-          />
-          <Button onClIick={handleSubmit} type="primary">
-            {buttonLabel}
-          </Button>
-        </>
-      )}
-    </div>
+      <div className={createStyles.container}>
+        {isLoading && <Loader type="bars" />}
+        {!isLoading && (
+          <div>
+            <Form
+              formFields={taskFields}
+              formErrors={formErrors}
+              formData={formValues}
+              handleChange={handleChange}
+            />
+            <Button onClIick={handleSubmit} type="primary">
+              {buttonLabel}
+            </Button>
+          </div>
+        )}
+        <TaskCard task={{ ...formValues, status: "pending" } as Task} />
+      </div>
+    </>
   );
 };
 

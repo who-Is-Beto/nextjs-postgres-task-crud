@@ -13,6 +13,7 @@ import formFields from "../../utils/formFields";
 import { useServerRefresher } from "@/hooks/useServerRefresher";
 import ErrorMessenge from "@/components/Error/ErrorMessage";
 import { SerializedError } from "@reduxjs/toolkit";
+import LoginImage from "../../assets/images/login.svg";
 
 const Login: NextPage = (): JSX.Element => {
   const [loginUser, { error, data }] = useLoginUserMutation();
@@ -30,7 +31,9 @@ const Login: NextPage = (): JSX.Element => {
   useEffect(() => {
     if (error && "status" in error) {
       setErrorMessage(
-        "error" in error ? error.error : ((error.data as SerializedError).message as string)
+        "error" in error
+          ? error.error
+          : ((error.data as SerializedError).message as string)
       );
     }
   }, [error]);
@@ -42,28 +45,33 @@ const Login: NextPage = (): JSX.Element => {
   }, [data, refreshServer]);
 
   return (
-    <div className={Styles.login}>
-      <h1 className={Styles.title}>Log In</h1>
-      <div className={Styles.formContainer}>
-        <Form
-          formFields={formFields}
-          formErrors={formErrors}
-          formData={formValues}
-          handleChange={handleChange}
-        />
-        <div className={Styles.buttonContainer}>
-          <small>
-            Don&apos;t you have account?{" "}
-            <Link href={"/Signin"}>
-              <a className={Styles.signinLink}>Sign in</a>
-            </Link>
-            !
-          </small>
-          <Button type="primary" onClIick={handleSubmit}>
-            Login <RiLoginBoxFill />
-          </Button>
-          {errorMessage && <ErrorMessenge message={errorMessage} />}
+    <div className={Styles.loginContainer}>
+      <div className={Styles.login}>
+        <h1 className={Styles.title}>Log In</h1>
+        <div className={Styles.formContainer}>
+          <Form
+            formFields={formFields}
+            formErrors={formErrors}
+            formData={formValues}
+            handleChange={handleChange}
+          />
+          <div className={Styles.buttonContainer}>
+            <small>
+              Don&apos;t you have account?{" "}
+              <Link href={"/Signin"}>
+                <a className={Styles.signinLink}>Sign in</a>
+              </Link>
+              !
+            </small>
+            <Button type="primary" onClIick={handleSubmit}>
+              Login <RiLoginBoxFill />
+            </Button>
+            {errorMessage && <ErrorMessenge message={errorMessage} />}
+          </div>
         </div>
+      </div>
+      <div className={Styles.loginImage}>
+        <LoginImage />
       </div>
     </div>
   );

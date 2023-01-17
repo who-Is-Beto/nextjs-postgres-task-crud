@@ -30,6 +30,11 @@
   width: 100%;
 }
 
+.title {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
 .taskCard__status {
   text-align: start;
   color: var(--danger);
@@ -51,6 +56,11 @@
 
 .taskCard__description {
   overflow: hidden;
-
   text-overflow: ellipsis;
+}
+
+@media (min-width: 768px) {
+  .taskCard {
+    max-width: 20rem;
+  }
 }

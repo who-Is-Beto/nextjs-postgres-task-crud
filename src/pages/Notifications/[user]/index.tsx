@@ -7,6 +7,7 @@ import { Task, User } from "@prisma/client";
 import { GetServerSidePropsContext, NextPage } from "next";
 import React from "react";
 import Styles from "./NotificationUser.module.css";
+import NotificationImage from "../../../assets/images/notifications.svg";
 
 const UserNotifications: NextPage<{ user: User }> = ({ user }): JSX.Element => {
   const { data, isLoading, isSuccess } = useGetTasksByUserIdQuery({
@@ -16,22 +17,30 @@ const UserNotifications: NextPage<{ user: User }> = ({ user }): JSX.Element => {
     (task: Task) => new Date(task.dateToComplete as Date) >= new Date()
   );
 
+  if (isLoading) {
+    return <Loader type="bars" />;
+  }
+
   return (
     <div className={Styles.notificationPage}>
       <h1 className={Styles.title}>
         Incoming <span className="green">Tasks</span>
       </h1>
-      {!isLoading && !data?.tasks?.length && (
-        <ErrorView message="You dont have any task notification :c" />
-      )}
-      {isSuccess && (
-        <div className={Styles.notifications}>
-          {(incomingTasks as Task[]).map((task) => (
-            <Notification key={task.id} user={user} task={task} />
-          ))}
+      <div className={Styles.notificationContainer}>
+        <div className={Styles.notificationImage}>
+          <NotificationImage />
         </div>
-      )}
-      {isLoading && <Loader type="bars" />}
+        {!isLoading && !data?.tasks?.length && (
+          <ErrorView message="You dont have any task notification :c" />
+        )}
+        {isSuccess && (
+          <div className={Styles.notifications}>
+            {(incomingTasks as Task[]).map((task) => (
+              <Notification key={task.id} user={user} task={task} />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

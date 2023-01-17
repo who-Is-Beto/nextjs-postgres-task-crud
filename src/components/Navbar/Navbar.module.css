@@ -16,3 +16,9 @@
   font-size: 1.3rem;
   font-weight: bold;
 }
+
+@media (min-width: 768px) {
+  .navbarContainer {
+    padding: 0;
+  }
+}

@@ -1,3 +1,7 @@
+.container {
+  display: block;
+}
+
 .create__title {
   text-align: center;
   margin-bottom: 1rem;
@@ -6,4 +10,18 @@
 .back {
   width: 6rem;
   margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    display: grid;
+    align-items: center;
+    width: 100%;
+    padding: 0 4rem;
+    justify-content: space-between;
+    grid-column-gap: 4rem;
+    -moz-column-gap: 4rem;
+    column-gap: calc(100% - 62rem);
+    grid-template-columns: minmax(12rem, 38rem) 1fr;
+  }
 }
