@@ -36,21 +36,23 @@
 
 @media (min-width: 768px) {
   .container {
-    column-gap: 14rem;
+    column-gap: 10rem;
+    height: 100%;
     justify-content: space-between;
-    align-items: center;
     display: flex;
-    padding: 0 2rem;
-    width: 100%;
+    width: 80%;
     align-items: center;
+    margin: 0 auto;
+    padding: 0;
   }
 
   .signin {
     display: grid;
-    height: 50%;
     place-items: center;
+    margin-bottom: 4rem;
   }
   .signinImage {
+    scale: 1.5;
     display: block;
     text-align: end;
   }

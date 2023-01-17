@@ -36,20 +36,23 @@
 @media (min-width: 768px) {
   .login {
     display: grid;
+    max-width: 45%;
     max-height: 52%;
     place-items: center;
   }
   .loginImage {
+    scale: 1.5;
     display: block;
     text-align: end;
   }
   .loginContainer {
-    column-gap: 14rem;
     justify-content: space-between;
     align-items: center;
     height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 80%;
+    margin: 0 auto;
   }
 }
