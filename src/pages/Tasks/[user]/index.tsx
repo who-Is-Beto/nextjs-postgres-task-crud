@@ -1,3 +1,4 @@
+import Board from "@/components/Board";
 import Button from "@/components/Button/Button";
 import Loader from "@/components/Loader";
 import { Modal } from "@/components/Modal";
@@ -51,14 +52,15 @@ const Tasks: NextPage<{ user: User }> = ({ user }): JSX.Element => {
       )}
       {!isLoading && data?.tasks && (
         <div className={taskStyles.tasks} onScroll={handleScroll}>
-          {data?.tasks.map((task) => (
+          {/* {data?.tasks.map((task) => (
             <TaskCard
               handleModal={handleModal}
               key={task.id}
               username={user.username}
               task={task}
             />
-          ))}
+          ))} */}
+          <Board tasks={data.tasks} />
         </div>
       )}
       {!scrolling && (
