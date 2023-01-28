@@ -20,12 +20,10 @@ const Task: NextPage<{ task: Task }> = ({ task }): JSX.Element => {
   const [taskStatus, setTaskStatus] = useState<TaskTates | null>(null);
   const { user } = router.query;
 
-  const handleGoBack = () => {
-    router.back();
-  };
-
-  useEffect(() => {
-    updateTask({ ...task, status: taskStatus as TaskTates });
+  useEffect((): void => {
+    if (taskStatus) {
+      updateTask({ ...task, status: taskStatus as TaskTates });
+    }
   }, [taskStatus, task, updateTask]);
 
   if (router.isFallback) {
@@ -35,7 +33,7 @@ const Task: NextPage<{ task: Task }> = ({ task }): JSX.Element => {
   return (
     <div className={SingleTaskStyles.task}>
       <div className={SingleTaskStyles.task__back}>
-        <Button onClIick={handleGoBack} type="primary">
+        <Button refresh={true} href="/Tasks" type="primary">
           <IoArrowBackSharp />
           back
         </Button>
