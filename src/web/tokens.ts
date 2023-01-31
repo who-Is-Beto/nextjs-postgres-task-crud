@@ -5,14 +5,14 @@ import { NextApiResponse } from "next";
 import { prisma } from "@/config";
 import { NextApiRequestCookies } from "next/dist/server/api-utils";
 import { IncomingMessage } from "http";
+import ENVS from "@/constants/envs";
 
-export const JWT_TOKEN_KEY = process.env.TOKEN_KEY || "OutsideJWT";
 const cookieOptions = {
   httpOnly: true,
   maxAge: 2592000,
   path: "/",
   sameSite: "Strict",
-  secure: process.env.NODE_ENV === "production"
+  secure: ENVS.env
 };
 
 function setCookie(
@@ -21,18 +21,19 @@ function setCookie(
   value: string,
   options: Record<string, unknown> = {}
 ): void {
-  const stringValue = typeof value === "object" ? `j:${JSON.stringify(value)}` : String(value);
+  const stringValue =
+    typeof value === "object" ? `j:${JSON.stringify(value)}` : String(value);
 
   res.setHeader("Set-Cookie", serialize(name, String(stringValue), options));
 }
 
 export function authenticatedUser(res: NextApiResponse, user: User): void {
   if (!user) return;
-  const token = jwt.sign({ email: user.email }, JWT_TOKEN_KEY, {
+  const token = jwt.sign({ email: user.email }, ENVS.tokenKey, {
     expiresIn: "7d"
   });
 
-  setCookie(res, JWT_TOKEN_KEY, token, cookieOptions);
+  setCookie(res, ENVS.tokenKey, token, cookieOptions);
 }
 
 export function logoutUser(res: NextApiResponse) {
@@ -51,7 +52,7 @@ export async function userFromRequest(
   }
 
   try {
-    const data = await jwt.verify(req.cookies.OutsideJWT, JWT_TOKEN_KEY);
+    const data = await jwt.verify(req.cookies.OutsideJWT, ENVS.tokenKey);
 
     if (!data) return undefined;
 

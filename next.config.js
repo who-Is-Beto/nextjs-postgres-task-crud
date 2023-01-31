@@ -1,24 +1,3 @@
-// const withPWA = require("next-pwa");
-
-// const nextConfig = {
-//   webpack(config) {
-//     config.module.rules.push({
-//       test: /\.svg$/i,
-//       issuer: /\.[jt]sx?$/,
-//       use: ["@svgr/webpack"]
-//     });
-
-//     return config;
-//   },
-//   pwa: withPWA({
-//     dest: "public",
-//     register: true,
-//     skipWaiting: true
-//   }),
-//   reactStrictMode: true
-// };
-
-// module.exports = nextConfig;
 /** @type {import('next').NextConfig} */
 const runtimeCaching = require("next-pwa/cache");
 
