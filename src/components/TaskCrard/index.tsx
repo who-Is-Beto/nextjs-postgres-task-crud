@@ -5,12 +5,16 @@ import Button from "../Button/Button";
 import TaskCardStyles from "./TaskCard.module.css";
 import { GrEdit } from "react-icons/gr";
 import { BsFillTrashFill } from "react-icons/bs";
+import { TaskTates } from "shimps";
 
 const TaskCard: React.FC<{
   task: Task;
+  setDraggedTask?: React.Dispatch<React.SetStateAction<Task | null>>;
   username?: string;
   handleModal?: (newIsOpen: boolean, task?: Task) => void;
-}> = ({ task, username, handleModal }): JSX.Element => {
+}> = ({ task, username, handleModal, setDraggedTask }): JSX.Element => {
+  const { title, status, description, id } = task;
+
   const handleDelete = (
     event: React.SyntheticEvent<Element, Event>,
     task: Task
@@ -21,10 +25,14 @@ const TaskCard: React.FC<{
     }
   };
 
-  const { title, status, description, id } = task;
+  const handleStartDrag = (event: React.DragEvent<HTMLAnchorElement>): void => {
+    if (setDraggedTask) {
+      setDraggedTask(task);
+    }
+  };
 
   return (
-    <LinkToCover id={id} username={username}>
+    <LinkToCover setDraggedTask={handleStartDrag} id={id} username={username}>
       <div className={TaskCardStyles.taskCard}>
         <div className={TaskCardStyles.taskCard__header}>
           <small className={TaskCardStyles.taskCard__status}>{status}</small>
@@ -53,12 +61,22 @@ const TaskCard: React.FC<{
 const LinkToCover: React.FC<{
   children: JSX.Element;
   username?: string;
+  setDraggedTask: (event: React.DragEvent<HTMLAnchorElement>) => void;
   id: number;
-}> = ({ children, id, username }): JSX.Element => {
+}> = ({ children, id, setDraggedTask, username }): JSX.Element => {
+  const handleDragStart = (event: React.DragEvent<HTMLAnchorElement>): void => {
+    setDraggedTask(event);
+  };
   if (username) {
     return (
       <Link href={`/Tasks/${username}/${id}`}>
-        <a className={TaskCardStyles.taskCard__anchor}>{children}</a>
+        <a
+          draggable
+          onDragStart={handleDragStart}
+          className={TaskCardStyles.taskCard__anchor}
+        >
+          {children}
+        </a>
       </Link>
     );
   }

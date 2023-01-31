@@ -9,31 +9,44 @@ type TPropsButton = {
   outlined?: boolean;
   children?: React.ReactNode;
   href?: string;
+  refresh?: boolean;
 };
 
 const Button: React.FC<TPropsButton> = ({
   href,
   onClIick,
   children,
+  refresh,
   type,
   outlined = false
 }): JSX.Element => {
   const buttonType = outlined ? type + "Outlined" : type;
   const buttonClass = `${ButtonStyle.button} ${ButtonStyle[buttonType]}`;
+
+  if (href) {
+    return (
+      <>
+        {refresh && (
+          <a href={href}>
+            <button className={`${buttonClass}`} onClick={onClIick}>
+              {children}
+            </button>
+          </a>
+        )}
+        {!refresh && (
+          <Link href={href}>
+            <button className={`${buttonClass}`} onClick={onClIick}>
+              {children}
+            </button>
+          </Link>
+        )}
+      </>
+    );
+  }
   return (
-    <>
-      {href ? (
-        <Link href={href}>
-          <button className={`${buttonClass}`} onClick={onClIick}>
-            {children}
-          </button>
-        </Link>
-      ) : (
-        <button className={`${buttonClass}`} onClick={onClIick}>
-          {children}
-        </button>
-      )}
-    </>
+    <button className={`${buttonClass}`} onClick={onClIick}>
+      {children}
+    </button>
   );
 };
 

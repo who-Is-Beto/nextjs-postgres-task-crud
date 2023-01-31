@@ -1,0 +1,21 @@
+.authContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+}
+
+.authImage {
+  width: 100%;
+  object-fit: cover;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.authText {
+  display: grid;
+  row-gap: 1rem;
+}

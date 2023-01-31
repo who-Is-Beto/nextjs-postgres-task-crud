@@ -20,12 +20,10 @@ const Task: NextPage<{ task: Task }> = ({ task }): JSX.Element => {
   const [taskStatus, setTaskStatus] = useState<TaskTates | null>(null);
   const { user } = router.query;
 
-  const handleGoBack = () => {
-    router.back();
-  };
-
-  useEffect(() => {
-    updateTask({ ...task, status: taskStatus as TaskTates });
+  useEffect((): void => {
+    if (taskStatus) {
+      updateTask({ ...task, status: taskStatus as TaskTates });
+    }
   }, [taskStatus, task, updateTask]);
 
   if (router.isFallback) {
@@ -35,12 +33,57 @@ const Task: NextPage<{ task: Task }> = ({ task }): JSX.Element => {
   return (
     <div className={SingleTaskStyles.task}>
       <div className={SingleTaskStyles.task__back}>
-        <Button onClIick={handleGoBack} type="primary">
+        <Button refresh={true} href="/Tasks" type="primary">
           <IoArrowBackSharp />
           back
         </Button>
       </div>
-      <div className={SingleTaskStyles.task__header}>
+
+      <div className={SingleTaskStyles.task__body}>
+        <div className={SingleTaskStyles.task__status}>
+          <h1 className={SingleTaskStyles.task__title}>{task.title}</h1>
+          <div className={SingleTaskStyles.task__options}>
+            <div className={SingleTaskStyles.task__edit}>
+              <Button href={`/Tasks/${user}/edit/${task.id}`} type="info">
+                <GrEdit />
+              </Button>
+            </div>
+            <Select selectHandler={setTaskStatus} placeholder={task.status}>
+              {taskStates.map((state) => (
+                <Option key={state} value={state}>
+                  {state}
+                </Option>
+              ))}
+            </Select>
+          </div>
+        </div>
+        <div className={SingleTaskStyles.task__info}>
+          <div>
+            <strong> Created at:</strong>{" "}
+            <span>
+              {new Date(task.created_at as Date).toLocaleString("us", {
+                dateStyle: "long",
+                timeStyle: "medium"
+              })}
+            </span>
+          </div>
+          {task.dateToComplete && (
+            <div>
+              <strong> Date to complete:</strong>{" "}
+              <span>
+                {new Date(task.dateToComplete as Date).toLocaleDateString(
+                  "en-US",
+                  { dateStyle: "long" }
+                )}
+              </span>
+            </div>
+          )}
+          <p className={SingleTaskStyles.task__description}>
+            {task.description}
+          </p>
+        </div>
+      </div>
+      {/* <div className={SingleTaskStyles.task__header}>
         <h1 className={SingleTaskStyles.task__title}>{task.title}</h1>
         <Select selectHandler={setTaskStatus} placeholder={task.status}>
           {taskStates.map((state) => (
@@ -80,8 +123,8 @@ const Task: NextPage<{ task: Task }> = ({ task }): JSX.Element => {
           <Button href={`/Tasks/${user}/edit/${task.id}`} type="info">
             <GrEdit />
           </Button>
-        </div>
-      </div>
+        </div> */}
+      {/* </div> */}
     </div>
   );
 };

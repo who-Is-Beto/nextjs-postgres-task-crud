@@ -4,7 +4,9 @@ import { userFromRequest } from "@/web/tokens";
 import UnAuth from "@/components/unaAuth";
 
 const User: NextPage = (): JSX.Element => {
-  return <UnAuth message="Please login to get access to your personal tasks." />;
+  return (
+    <UnAuth message="Please login to get access to your personal tasks." />
+  );
 };
 
 export default User;

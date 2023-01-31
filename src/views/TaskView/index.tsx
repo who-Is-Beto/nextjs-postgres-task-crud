@@ -62,14 +62,14 @@ const TaskView: React.FC<{
     mutation
   );
 
-  const handleGoBack = () => {
-    router.back();
+  const handleGoBack = (): void => {
+    router.push("/Tasks");
   };
 
   return (
     <>
       <div className={createStyles.back}>
-        <Button onClIick={handleGoBack} type="primary">
+        <Button refresh={true} onClIick={handleGoBack} type="primary">
           <IoArrowBackSharp />
           back
         </Button>

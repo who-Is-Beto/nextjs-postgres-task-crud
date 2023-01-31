@@ -1,7 +1,17 @@
+.userContainer {
+  width: 100%;
+}
+
 .user {
+  width: 100%;
   display: flex;
+  align-items: center;
   flex-direction: column;
-  row-gap: 1rem;
+  gap: 3.5rem;
+}
+
+.userImage {
+  display: none;
 }
 
 .userGreeting {
@@ -13,8 +23,44 @@
   color: var(--lightGreen);
 }
 
-.userOptions {
-  display: flex;
-  flex-direction: column;
+.formContainer {
+  width: 95%;
+  display: grid;
+  place-items: center;
+  margin: 0 auto;
   row-gap: 1rem;
+}
+
+.buttonContainer {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .user {
+    display: grid;
+    max-width: 45%;
+    max-height: 52%;
+    place-items: center;
+  }
+
+  .user {
+    scale: 1.2;
+    display: block;
+    text-align: start;
+  }
+
+  .userImage {
+    display: block;
+    scale: 1.4;
+  }
+
+  .userContainer {
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+  }
 }
