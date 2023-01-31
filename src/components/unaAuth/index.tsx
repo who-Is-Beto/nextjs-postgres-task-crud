@@ -2,7 +2,7 @@ import React from "react";
 import { RiLoginBoxFill } from "react-icons/ri";
 import NotAllowed from "@/assets/images/not_allowed.svg";
 import Button from "../Button/Button";
-import UnAuthStyles from "./UnAuthUser.module.css";
+import UnAuthStyles from "./unAuthUser.module.css";
 
 const UnAuth: React.FC<{ message: string }> = ({ message }): JSX.Element => {
   return (
