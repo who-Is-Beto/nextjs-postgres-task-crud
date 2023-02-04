@@ -9,7 +9,10 @@ export default function defaultHandler<ReqType, ResType>() {
 
       (res as unknown as NextApiResponse)
         .status(500)
-        .json({ message: "Something went wrong :c Internal Server Error" });
+        .json({
+          message: "Something went wrong :c Internal Server Error",
+          error
+        });
     }
   });
 }
