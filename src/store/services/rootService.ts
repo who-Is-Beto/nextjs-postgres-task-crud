@@ -1,9 +1,10 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { axiosBaseQuery } from "@/utils/axiosCustom";
+import { createApi } from "@reduxjs/toolkit/query/react";
 
 export const rootServices = createApi({
-  reducerPath: "services",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "https://nextjs-postgres-task-crud.vercel.app/"
+  reducerPath: "rootServices",
+  baseQuery: axiosBaseQuery({
+    baseUrl: "/api/"
   }),
   endpoints: () => ({})
 });

@@ -35,15 +35,6 @@ const SignIn: NextPage = (): JSX.Element => {
     }
   }, [data, refreshServer]);
 
-  useEffect(() => {
-    if (error && "status" in error) {
-      setErrorMessage(
-        "error" in error
-          ? error.error
-          : ((error.data as SerializedError).message as string)
-      );
-    }
-  }, [error]);
   return (
     <div className={Styles.container}>
       <div className={Styles.signinImage}>

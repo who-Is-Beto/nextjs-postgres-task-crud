@@ -5,13 +5,7 @@ import useForm from "@/hooks/useForm";
 import taskFields from "@/utils/taskFields";
 import taskFieldValidations from "@/utils/taskFieldsValidations";
 import { Task } from "@prisma/client";
-import {
-  BaseQueryFn,
-  FetchArgs,
-  FetchBaseQueryError,
-  FetchBaseQueryMeta,
-  MutationDefinition
-} from "@reduxjs/toolkit/dist/query";
+import { BaseQueryFn, MutationDefinition } from "@reduxjs/toolkit/dist/query";
 import { MutationTrigger } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import { useRouter } from "next/router";
 import React from "react";
@@ -19,22 +13,17 @@ import { IoArrowBackSharp } from "react-icons/io5";
 import { IResponse } from "shimps";
 import createStyles from "./create.module.css";
 import TaskCard from "@/components/TaskCrard";
+import { BaseQueryArgs } from "@/utils/axiosCustom";
 
 const TaskView: React.FC<{
   isError: boolean;
   mutation: MutationTrigger<
     MutationDefinition<
-      any,
-      BaseQueryFn<
-        string | FetchArgs,
-        unknown,
-        FetchBaseQueryError,
-        {},
-        FetchBaseQueryMeta
-      >,
+      Task,
+      BaseQueryFn<BaseQueryArgs, unknown, unknown, {}, {}>,
       never,
       IResponse,
-      "services"
+      "rootServices"
     >
   >;
   isLoading: boolean;

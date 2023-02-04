@@ -1,3 +1,4 @@
+import { BaseQueryArgs } from "@/utils/axiosCustom";
 import {
   BaseQueryFn,
   FetchArgs,
@@ -7,7 +8,7 @@ import {
 } from "@reduxjs/toolkit/dist/query";
 import { MutationTrigger } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import React, { useState, useEffect } from "react";
-import { IResponse } from "shimps";
+import { DataResponseSuccess, IResponse } from "shimps";
 import validateValues from "who-fields-validator";
 
 const useForm = (
@@ -16,19 +17,25 @@ const useForm = (
   mutation: MutationTrigger<
     MutationDefinition<
       any,
-      BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>,
+      BaseQueryFn<BaseQueryArgs, unknown, unknown, {}, {}>,
       never,
-      IResponse,
-      "services"
+      DataResponseSuccess,
+      "rootServices"
     >
   >
 ) => {
-  const [formValues, setFormValues] = useState<{ [key: string]: any }>(formInitialState || {});
-  const [formErrors, setFormErrors] = useState<{ [key: string]: any }>(formInitialState || {});
+  const [formValues, setFormValues] = useState<{ [key: string]: any }>(
+    formInitialState || {}
+  );
+  const [formErrors, setFormErrors] = useState<{ [key: string]: any }>(
+    formInitialState || {}
+  );
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
   const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
   ): void => {
     event.persist();
     setFormValues({ ...formValues, [event.target.name]: event.target.value });
@@ -38,8 +45,13 @@ const useForm = (
   const handleSubmit = (event: React.SyntheticEvent): void => {
     event.preventDefault();
     event.persist();
-    setFormErrors({ ...formErrors, ...validateValues(formValues, validations).errors });
-    if (Object.keys(validateValues(formValues, validations).errors).length === 0) {
+    setFormErrors({
+      ...formErrors,
+      ...validateValues(formValues, validations).errors
+    });
+    if (
+      Object.keys(validateValues(formValues, validations).errors).length === 0
+    ) {
       setIsSubmit(true);
     }
   };
