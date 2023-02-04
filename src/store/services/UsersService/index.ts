@@ -10,13 +10,13 @@ const usersService = rootServices.injectEndpoints({
   endpoints: (builder) => ({
     loginUser: builder.mutation<DataResponseSuccess, TDataSendLogin>({
       query: ({ email, password }) => ({
-        url: "/api/sessions",
+        url: () => "/sessions",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           apikey: "admin123"
         },
-        body: {
+        data: {
           email,
           password
         }
@@ -24,13 +24,13 @@ const usersService = rootServices.injectEndpoints({
     }),
     updateUser: builder.mutation<DataResponseSuccess, TDataSendRegister>({
       query: ({ email, password, username }) => ({
-        url: "/api/users",
+        url: (): string => "/users",
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           apikey: "admin123"
         },
-        body: {
+        data: {
           email,
           password,
           username
@@ -39,13 +39,13 @@ const usersService = rootServices.injectEndpoints({
     }),
     createUser: builder.mutation<DataResponseSuccess, TDataSendRegister>({
       query: ({ email, password, username }) => ({
-        url: "/api/users",
+        url: (): string => "/users",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           apikey: "admin123"
         },
-        body: {
+        data: {
           email,
           password,
           username
@@ -54,7 +54,7 @@ const usersService = rootServices.injectEndpoints({
     }),
     logoutUser: builder.mutation<DataResponseMessage, void>({
       query: () => ({
-        url: "/api/sessions",
+        url: (): string => "/sessions",
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
