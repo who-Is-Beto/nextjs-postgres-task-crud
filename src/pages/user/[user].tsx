@@ -30,15 +30,6 @@ const UserPage: NextPage<{ user: User }> = ({ user }): JSX.Element => {
     signinValidations,
     updateUser
   );
-  useEffect(() => {
-    if (error && "status" in error) {
-      setErrorMessage(
-        "error" in error
-          ? error.error
-          : ((error.data as SerializedError).message as string)
-      );
-    }
-  }, [error]);
 
   useEffect(() => {
     if (isSuccess) {
