@@ -10,7 +10,7 @@ const usersService = rootServices.injectEndpoints({
   endpoints: (builder) => ({
     loginUser: builder.mutation<DataResponseSuccess, TDataSendLogin>({
       query: ({ email, password }) => ({
-        url: () => "/sessions",
+        url: () => "sessions",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -24,7 +24,7 @@ const usersService = rootServices.injectEndpoints({
     }),
     updateUser: builder.mutation<DataResponseSuccess, TDataSendRegister>({
       query: ({ email, password, username }) => ({
-        url: (): string => "/users",
+        url: (): string => "users",
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -39,7 +39,7 @@ const usersService = rootServices.injectEndpoints({
     }),
     createUser: builder.mutation<DataResponseSuccess, TDataSendRegister>({
       query: ({ email, password, username }) => ({
-        url: (): string => "/users",
+        url: (): string => "users",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,7 +54,7 @@ const usersService = rootServices.injectEndpoints({
     }),
     logoutUser: builder.mutation<DataResponseMessage, void>({
       query: () => ({
-        url: (): string => "/sessions",
+        url: (): string => "sessions",
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
