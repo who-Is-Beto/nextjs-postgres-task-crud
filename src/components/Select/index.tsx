@@ -10,10 +10,12 @@ const Select: React.FC<{
   placeholder?: string;
   selectHandler?: (value: any) => void;
 }> = ({ children, defaultValue, placeholder, selectHandler }): JSX.Element => {
-  const [selectedOption, setSelectedOption] = useState<string>(defaultValue || "");
+  const [selectedOption, setSelectedOption] = useState<string>(
+    defaultValue || ""
+  );
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const [placeholderValue, setPlaceholderValue] = useState<string>("");
   const handleShowDropdown = (): void => setShowDropdown(!showDropdown);
-  const selectPlaceholder = placeholder || "Select an option";
 
   const selectContainerRef = useRef<HTMLDivElement>(null);
 
@@ -31,6 +33,10 @@ const Select: React.FC<{
     }
   }, [selectedOption, selectHandler]);
 
+  useEffect((): void => {
+    setPlaceholderValue(placeholder || "Select an option");
+  }, [placeholder]);
+
   return (
     <SelectContext.Provider
       value={{
@@ -38,14 +44,22 @@ const Select: React.FC<{
         changeSelectedOption: updateSelectedOption
       }}
     >
-      <div className={SelectStyles.select} onClick={handleShowDropdown} ref={selectContainerRef}>
+      <div
+        className={SelectStyles.select}
+        onClick={handleShowDropdown}
+        ref={selectContainerRef}
+      >
         <span className={SelectStyles.selectSpan}>
-          {selectedOption.length > 0 ? selectedOption : selectPlaceholder}
+          {selectedOption.length > 0 ? selectedOption : placeholderValue}
           <AiFillCaretDown
-            className={`${SelectStyles.selectIcon} ${showDropdown ? "rotate" : ""}`}
+            className={`${SelectStyles.selectIcon} ${
+              showDropdown ? "rotate" : ""
+            }`}
           />
         </span>
-        {showDropdown && <ul className={SelectStyles.selectList}>{children}</ul>}
+        {showDropdown && (
+          <ul className={SelectStyles.selectList}>{children}</ul>
+        )}
       </div>
     </SelectContext.Provider>
   );

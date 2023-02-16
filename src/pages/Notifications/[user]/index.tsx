@@ -8,13 +8,19 @@ import { GetServerSidePropsContext, NextPage } from "next";
 import React from "react";
 import Styles from "./NotificationUser.module.css";
 import NotificationImage from "../../../assets/images/notifications.svg";
+import { IncomingDatesTracked } from "@/constants";
+import { useSelector } from "react-redux";
+import { IStore } from "shimps";
 
 const UserNotifications: NextPage<{ user: User }> = ({ user }): JSX.Element => {
-  const { data, isLoading, isSuccess } = useGetTasksByUserIdQuery({
+  const selectedTimeToNotify = useSelector((app: IStore) => app.config);
+  const { data, isLoading, isSuccess, isError } = useGetTasksByUserIdQuery({
     userId: user.id
   });
   const incomingTasks = data?.tasks?.filter(
-    (task: Task) => new Date(task.dateToComplete as Date) >= new Date()
+    (task: Task) =>
+      new Date(task.dateToComplete as Date).getDay() >=
+      IncomingDatesTracked.get(selectedTimeToNotify.incomingTime)!.getDay()
   );
 
   if (isLoading) {
@@ -30,11 +36,16 @@ const UserNotifications: NextPage<{ user: User }> = ({ user }): JSX.Element => {
         <div className={Styles.notificationImage}>
           <NotificationImage />
         </div>
-        {!isLoading && !data?.tasks?.length && (
-          <ErrorView message="You dont have any task notification :c" />
+        {isError && (
+          <div className={Styles.notifications}>
+            <ErrorView message="Something went wrong :c" />
+          </div>
         )}
         {isSuccess && (
           <div className={Styles.notifications}>
+            {!isLoading && !data?.tasks?.length && (
+              <ErrorView message="You dont have any task notification :c" />
+            )}
             {(incomingTasks as Task[]).map((task) => (
               <Notification key={task.id} user={user} task={task} />
             ))}

@@ -21,7 +21,6 @@ import appSlice from "./services/slice/appSlice";
 const persistConfig = {
   key: "root",
   version: 1,
-  whitelist: ["user"],
   storage
 };
 

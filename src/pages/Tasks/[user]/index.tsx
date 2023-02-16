@@ -4,7 +4,7 @@ import Loader from "@/components/Loader";
 import { useGetTasksByUserIdQuery } from "@/store/services/TasksService";
 import ErrorView from "@/views/ErrorView";
 import { userFromRequest } from "@/web/tokens";
-import { User } from "@prisma/client";
+import { Task, User } from "@prisma/client";
 import { GetServerSidePropsContext, NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import taskStyles from "./tasks.module.css";
@@ -37,12 +37,12 @@ const Tasks: NextPage<{ user: User }> = ({ user }): JSX.Element => {
         <span className={taskStyles.userGreeting__name}>{user.username}</span>!
       </h1>
       {isLoading && <Loader type="bars" />}
-      {!isLoading && !data?.tasks?.length && (
+      {!isLoading && data!.tasks!.length === 0 && (
         <ErrorView message="You dont have any task yet :c" />
       )}
-      {!isLoading && data?.tasks && (
+      {!isLoading && data!.tasks!.length > 0 && (
         <div className={taskStyles.tasks} onScroll={handleScroll}>
-          <Board user={user} tasks={data.tasks} />
+          <Board user={user} tasks={data!.tasks as Task[]} />
         </div>
       )}
       {!scrolling && (

@@ -4,6 +4,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 80%;
+  max-width: 38rem;
   height: 30%;
   z-index: 4;
   border: 1px solid var(--tealBlue);
