@@ -1,12 +1,9 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { IStore } from "shimps";
 import SettingsOption from "../../views/SettingsOptions";
 import SettingOptionStyle from "./Settings.module.css";
 import Button from "@/components/Button/Button";
 import { RiLogoutBoxRFill } from "react-icons/ri";
 import { useLogoutUserMutation } from "@/store/services/UsersService";
-import { setDarkMode } from "@/store/services/slice/appSlice";
 import { GetServerSidePropsContext } from "next";
 import { useServerRefresher } from "@/hooks/useServerRefresher";
 import { userFromRequest } from "@/web/tokens";
@@ -15,16 +12,8 @@ import UnAuth from "@/components/unaAuth";
 import { ShowToast } from "@/components/Toast";
 
 const Settings: React.FC<{ user: User }> = ({ user }): JSX.Element => {
-  const globalSettings = useSelector(
-    (state: { app: IStore }) => state.app.config
-  );
   const refreshServer = useServerRefresher();
-  const [logoutUser, { data }] = useLogoutUserMutation();
-  const dispatch = useDispatch();
-
-  const handleChangeTheme = (): void => {
-    dispatch(setDarkMode(!globalSettings.darkMode));
-  };
+  const [logoutUser, { data, isSuccess, isError }] = useLogoutUserMutation();
 
   const handleLogout = (): void => {
     logoutUser();
@@ -35,6 +24,21 @@ const Settings: React.FC<{ user: User }> = ({ user }): JSX.Element => {
       refreshServer();
     }
   }, [data, refreshServer]);
+
+  useEffect((): void => {
+    if (isSuccess) {
+      ShowToast({
+        label: "Logout success",
+        type: "success"
+      });
+    }
+    if (isError) {
+      ShowToast({
+        label: "Logout error",
+        type: "error"
+      });
+    }
+  }, [isSuccess, isError]);
 
   return (
     <>
@@ -47,10 +51,7 @@ const Settings: React.FC<{ user: User }> = ({ user }): JSX.Element => {
               Settings
             </h1>
             <div className="setting-item">
-              <SettingsOption
-                globalSettings={globalSettings}
-                setDarkMode={handleChangeTheme}
-              />
+              <SettingsOption />
             </div>
           </div>
 

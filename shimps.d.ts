@@ -3,8 +3,13 @@ import { Interface } from "readline";
 
 type TaskTates = "pending" | "in progress" | "done";
 
-type TLenguages = "spanish" | "english";
-type TIncomingTime = "today" | "next 3 days" | "this week" | "this month" | "next month" | "all";
+type TIncomingTime =
+  | "today"
+  | "next 3 days"
+  | "this week"
+  | "this month"
+  | "next month"
+  | "all";
 
 type IUserLoginData = {
   email: IUserLoginType;
@@ -45,7 +50,6 @@ declare type IResponse = {
 };
 
 interface IUserConfig {
-  lenguage: TLenguages;
   darkMode: boolean;
   incomingTime: TIncomingTime;
 }
