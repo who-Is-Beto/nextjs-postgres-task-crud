@@ -1,13 +1,11 @@
 import { ShowToast } from "@/components/Toast";
 import { useCreateTaskMutation } from "@/store/services/TasksService";
 import TaskView from "@/views/TaskView";
-import { userFromRequest } from "@/web/tokens";
-import { User } from "@prisma/client";
-import { GetServerSidePropsContext, NextPage } from "next";
+import {  NextPage } from "next";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
-const TaskCreate: NextPage<{ user: User }> = ({ user }): JSX.Element => {
+const TaskCreate: NextPage = (): JSX.Element => {
   const router = useRouter();
   const [createTask, { isLoading, isSuccess, isError, error }] =
     useCreateTaskMutation();
@@ -15,14 +13,14 @@ const TaskCreate: NextPage<{ user: User }> = ({ user }): JSX.Element => {
     if (isSuccess) {
       ShowToast({ label: "Task Crated c:", type: "success" });
       setTimeout(() => {
-        router.push(`/Tasks/${user.username}`);
+        router.push(`/Tasks`);
       }, 1000);
       return;
     }
     if (isError) {
       ShowToast({ label: `${error} :c`, type: "error" });
     }
-  }, [isSuccess]);
+  }, [isSuccess, isError]);
   return (
     <TaskView
       buttonLabel="Create task"
@@ -35,20 +33,5 @@ const TaskCreate: NextPage<{ user: User }> = ({ user }): JSX.Element => {
     />
   );
 };
-
-export async function getServerSideProps(constext: GetServerSidePropsContext) {
-  const user = await userFromRequest(constext.req);
-  if (user) {
-    return {
-      props: {
-        user: JSON.parse(JSON.stringify(user))
-      }
-    };
-  }
-
-  return {
-    props: {}
-  };
-}
 
 export default TaskCreate;

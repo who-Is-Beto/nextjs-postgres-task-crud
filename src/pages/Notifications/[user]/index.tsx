@@ -13,15 +13,18 @@ import { useSelector } from "react-redux";
 import { IStore } from "shimps";
 
 const UserNotifications: NextPage<{ user: User }> = ({ user }): JSX.Element => {
-  const selectedTimeToNotify = useSelector((app: IStore) => app.config);
   const { data, isLoading, isSuccess, isError } = useGetTasksByUserIdQuery({
     userId: user.id
   });
-  const incomingTasks = data?.tasks?.filter(
-    (task: Task) =>
-      new Date(task.dateToComplete as Date).getDay() >=
-      IncomingDatesTracked.get(selectedTimeToNotify.incomingTime)!.getDay()
+  const selectedTimeToNotify = useSelector(
+    (state: { app: IStore }) => state.app.config.incomingTime
   );
+
+  const incomingTasks = data?.tasks?.filter((task) => {
+    const incomingDate = IncomingDatesTracked.get(selectedTimeToNotify);
+    return (
+      new Date(task.dateToComplete as Date).valueOf() <= new Date(incomingDate as Date).valueOf());
+  });
 
   if (isLoading) {
     return <Loader type="bars" />;
@@ -44,7 +47,7 @@ const UserNotifications: NextPage<{ user: User }> = ({ user }): JSX.Element => {
         {isSuccess && (
           <div className={Styles.notifications}>
             {!isLoading && !data?.tasks?.length && (
-              <ErrorView message="You dont have any task notification :c" />
+              <ErrorView message="You don't have any task notification :c" />
             )}
             {(incomingTasks as Task[]).map((task) => (
               <Notification key={task.id} user={user} task={task} />
@@ -56,8 +59,8 @@ const UserNotifications: NextPage<{ user: User }> = ({ user }): JSX.Element => {
   );
 };
 
-export async function getServerSideProps(constext: GetServerSidePropsContext) {
-  const user = await userFromRequest(constext.req);
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const user = await userFromRequest(context.req);
   if (user) {
     return {
       props: {

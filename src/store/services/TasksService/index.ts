@@ -6,7 +6,7 @@ const taskService = rootServices.injectEndpoints({
   endpoints: (builder) => ({
     deleteTask: builder.mutation<Task, number>({
       query: (id) => ({
-        url: () => `/tasks/`,
+        url: () => `tasks`,
         method: "DELETE",
         headers: {
           "Content-Type": "application/json"
@@ -16,7 +16,7 @@ const taskService = rootServices.injectEndpoints({
     }),
     createTask: builder.mutation<IResponse, Task>({
       query: (data) => ({
-        url: () => "/tasks",
+        url: () => "tasks",
         method: "POST",
         data,
         headers: {
@@ -26,14 +26,14 @@ const taskService = rootServices.injectEndpoints({
     }),
     updateTask: builder.mutation<IResponse, Task>({
       query: (data) => ({
-        url: () => `/tasks/${data.id}`,
+        url: () => `tasks/${data.id}`,
         method: "PUT",
         data
       })
     }),
     getTasksByUserId: builder.query<IResponse, TDataToGetTasks>({
       query: ({ userId }) => ({
-        url: () => `/tasks/${userId}`,
+        url: () => `tasks/${userId}`,
         method: "GET",
         headers: {
           "Content-Type": "application/json",

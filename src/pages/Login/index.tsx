@@ -12,12 +12,15 @@ import loginValidations from "../../utils/validations";
 import formFields from "../../utils/formFields";
 import { useServerRefresher } from "@/hooks/useServerRefresher";
 import ErrorMessenge from "@/components/Error/ErrorMessage";
-import { SerializedError } from "@reduxjs/toolkit";
 import LoginImage from "../../assets/images/login.svg";
+import { DataResponseMessage } from "shimps";
+import { ShowToast } from "@/components/Toast";
+import { useRouter } from "next/router";
+import Loader from "@/components/Loader";
 
 const Login: NextPage = (): JSX.Element => {
-  const [loginUser, { error, data }] = useLoginUserMutation();
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [loginUser, { data, isError, error, isSuccess, isLoading }] = useLoginUserMutation();
+  const router = useRouter();
   const refreshServer = useServerRefresher();
   const { handleChange, handleSubmit, formValues, formErrors } = useForm(
     {
@@ -29,10 +32,19 @@ const Login: NextPage = (): JSX.Element => {
   );
 
   useEffect(() => {
-    if (data) {
-      refreshServer();
+    if (isSuccess) {
+      ShowToast({ label: "Task Crated c:", type: "success" });
+        router.push(`/Tasks`);
+      return;
+    }
+    if (isError) {
+      ShowToast({ label: `${error} :c`, type: "error" });
     }
   }, [data, refreshServer]);
+
+  if(isLoading) {
+    return <Loader type="bars" />
+  }
 
   return (
     <div className={Styles.loginContainer}>
@@ -56,7 +68,7 @@ const Login: NextPage = (): JSX.Element => {
             <Button type="primary" onClIick={handleSubmit}>
               Login <RiLoginBoxFill />
             </Button>
-            {errorMessage && <ErrorMessenge message={errorMessage} />}
+            {isError && <ErrorMessenge message={(error as {data: DataResponseMessage}).data.message} />}
           </div>
         </div>
       </div>

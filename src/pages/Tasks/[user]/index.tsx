@@ -1,18 +1,18 @@
-import Board from "@/components/Board";
-import Button from "@/components/Button/Button";
-import Loader from "@/components/Loader";
-import { useGetTasksByUserIdQuery } from "@/store/services/TasksService";
-import ErrorView from "@/views/ErrorView";
-import { userFromRequest } from "@/web/tokens";
-import { Task, User } from "@prisma/client";
-import { GetServerSidePropsContext, NextPage } from "next";
-import React, { useEffect, useState } from "react";
-import taskStyles from "./tasks.module.css";
-import { useRouter } from "next/router";
+import Board from '@/components/Board';
+import Button from '@/components/Button/Button';
+import Loader from '@/components/Loader';
+import { useGetTasksByUserIdQuery } from '@/store/services/TasksService';
+import ErrorView from '@/views/ErrorView';
+import { userFromRequest } from '@/web/tokens';
+import { Task, User } from '@prisma/client';
+import { GetServerSidePropsContext, NextPage } from 'next';
+import React, { useEffect, useState } from 'react';
+import taskStyles from './tasks.module.css';
+import { useRouter } from 'next/router';
 
 const Tasks: NextPage<{ user: User }> = ({ user }): JSX.Element => {
   const { data, isLoading, refetch } = useGetTasksByUserIdQuery({
-    userId: user.id
+    userId: user.id,
   });
   const [scrolling, setScrolling] = useState<boolean>(false);
   const router = useRouter();
@@ -30,17 +30,17 @@ const Tasks: NextPage<{ user: User }> = ({ user }): JSX.Element => {
     refetch();
   }, [router.pathname]);
 
+  if (isLoading) {
+    return <Loader type="bars" />;
+  }
+
   return (
     <div className={taskStyles.taskPage}>
       <h1 className={taskStyles.userGreeting}>
-        Hello{" "}
-        <span className={taskStyles.userGreeting__name}>{user.username}</span>!
+        Hello <span className={taskStyles.userGreeting__name}>{user.username}</span>!
       </h1>
-      {isLoading && <Loader type="bars" />}
-      {!isLoading && data!.tasks!.length === 0 && (
-        <ErrorView message="You dont have any task yet :c" />
-      )}
-      {!isLoading && data!.tasks!.length > 0 && (
+      {data!.tasks!.length === 0 && <ErrorView message="You dont have any task yet :c" />}
+      {data!.tasks!.length > 0 && (
         <div className={taskStyles.tasks} onScroll={handleScroll}>
           <Board user={user} tasks={data!.tasks as Task[]} />
         </div>
@@ -61,13 +61,13 @@ export async function getServerSideProps(constext: GetServerSidePropsContext) {
   if (user) {
     return {
       props: {
-        user: JSON.parse(JSON.stringify(user))
-      }
+        user: JSON.parse(JSON.stringify(user)),
+      },
     };
   }
 
   return {
-    props: {}
+    props: {},
   };
 }
 

@@ -1,19 +1,19 @@
-import Button from "@/components/Button/Button";
-import Form from "@/components/Form/Form";
-import Loader from "@/components/Loader";
-import useForm from "@/hooks/useForm";
-import taskFields from "@/utils/taskFields";
-import taskFieldValidations from "@/utils/taskFieldsValidations";
-import { Task } from "@prisma/client";
-import { BaseQueryFn, MutationDefinition } from "@reduxjs/toolkit/dist/query";
-import { MutationTrigger } from "@reduxjs/toolkit/dist/query/react/buildHooks";
-import { useRouter } from "next/router";
-import React from "react";
-import { IoArrowBackSharp } from "react-icons/io5";
-import { IResponse } from "shimps";
-import createStyles from "./create.module.css";
-import TaskCard from "@/components/TaskCrard";
-import { BaseQueryArgs } from "@/utils/axiosCustom";
+import Button from '@/components/Button/Button';
+import Form from '@/components/Form/Form';
+import Loader from '@/components/Loader';
+import useForm from '@/hooks/useForm';
+import taskFields from '@/utils/taskFields';
+import taskFieldValidations from '@/utils/taskFieldsValidations';
+import { Task } from '@prisma/client';
+import { BaseQueryFn, MutationDefinition } from '@reduxjs/toolkit/dist/query';
+import { MutationTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { IoArrowBackSharp } from 'react-icons/io5';
+import { IResponse } from 'shimps';
+import createStyles from './create.module.css';
+import TaskCard from '@/components/TaskCrard';
+import { BaseQueryArgs } from '@/utils/axiosCustom';
 
 const TaskView: React.FC<{
   isError: boolean;
@@ -23,7 +23,7 @@ const TaskView: React.FC<{
       BaseQueryFn<BaseQueryArgs, unknown, unknown, {}, {}>,
       never,
       IResponse,
-      "rootServices"
+      'rootServices'
     >
   >;
   isLoading: boolean;
@@ -32,28 +32,23 @@ const TaskView: React.FC<{
   buttonLabel: string;
   greenText?: string;
   task?: Task;
-}> = ({
-  isLoading,
-  mutation,
-  buttonLabel,
-  title,
-  task,
-  greenText
-}): JSX.Element => {
+}> = ({ isLoading, mutation, buttonLabel, title, task, greenText }): JSX.Element => {
   const router = useRouter();
   const { formErrors, formValues, handleChange, handleSubmit } = useForm(
     {
-      title: task?.title ? task.title : "",
-      description: task?.description ? task.description : "",
-      dateToComplete: task?.dateToComplete ? task.dateToComplete : ""
+      ...task,
     },
     taskFieldValidations,
-    mutation
+    mutation,
   );
 
   const handleGoBack = (): void => {
-    router.push("/Tasks");
+    router.push('/Tasks');
   };
+
+  if (isLoading) {
+    return <Loader type="bars" />;
+  }
 
   return (
     <>
@@ -67,21 +62,18 @@ const TaskView: React.FC<{
         {title} <span className="green">{greenText}</span>
       </h1>
       <div className={createStyles.container}>
-        {isLoading && <Loader type="bars" />}
-        {!isLoading && (
-          <div>
-            <Form
-              formFields={taskFields}
-              formErrors={formErrors}
-              formData={formValues}
-              handleChange={handleChange}
-            />
-            <Button onClIick={handleSubmit} type="primary">
-              {buttonLabel}
-            </Button>
-          </div>
-        )}
-        <TaskCard task={{ ...formValues, status: "pending" } as Task} />
+        <div>
+          <Form
+            formFields={taskFields}
+            formErrors={formErrors}
+            formData={formValues}
+            handleChange={handleChange}
+          />
+          <Button onClIick={handleSubmit} type="primary">
+            {buttonLabel}
+          </Button>
+        </div>
+        <TaskCard task={{ ...formValues, status: 'pending' } as Task} />
       </div>
     </>
   );

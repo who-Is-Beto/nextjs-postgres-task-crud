@@ -1,53 +1,52 @@
-import React, { useEffect, useState } from "react";
-import { userFromRequest } from "@/web/tokens";
-import { User } from "@prisma/client";
-import { GetServerSidePropsContext, NextPage } from "next";
-import userStyles from "./user.module.css";
-import Form from "@/components/Form/Form";
-import useForm from "@/hooks/useForm";
-import changeUserDataFormFields from "../../utils/optionsToChange";
-import { useUpdateUserMutation } from "@/store/services/UsersService";
-import signinValidations from "../../utils/signinValidations";
-import Button from "@/components/Button/Button";
-import { MdTipsAndUpdates } from "react-icons/md";
-import ErrorMessenge from "@/components/Error/ErrorMessage";
-import { SerializedError } from "@reduxjs/toolkit";
-import LoginImage from "../../assets/images/login.svg";
-import { ShowToast } from "@/components/Toast";
-import { useRouter } from "next/router";
+import React, { useEffect, useState } from 'react';
+import { userFromRequest } from '@/web/tokens';
+import { User } from '@prisma/client';
+import { GetServerSidePropsContext, NextPage } from 'next';
+import userStyles from './user.module.css';
+import Form from '@/components/Form/Form';
+import useForm from '@/hooks/useForm';
+import changeUserDataFormFields from '../../utils/optionsToChange';
+import { useUpdateUserMutation } from '@/store/services/UsersService';
+import signinValidations from '../../utils/signinValidations';
+import Button from '@/components/Button/Button';
+import { MdTipsAndUpdates } from 'react-icons/md';
+import ErrorMessenge from '@/components/Error/ErrorMessage';
+import { SerializedError } from '@reduxjs/toolkit';
+import LoginImage from '../../assets/images/login.svg';
+import { ShowToast } from '@/components/Toast';
+import { useRouter } from 'next/router';
+import { DataResponseMessage } from 'shimps';
 
 const UserPage: NextPage<{ user: User }> = ({ user }): JSX.Element => {
   const [updateUser, { error, isSuccess, isError }] = useUpdateUserMutation();
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const router = useRouter();
   const { formErrors, formValues, handleChange, handleSubmit } = useForm(
     {
-      email: "",
-      password: "",
-      username: "",
-      repeatPassword: ""
+      email: '',
+      password: '',
+      username: '',
+      repeatPassword: '',
     },
     signinValidations,
-    updateUser
+    updateUser,
   );
 
-  useEffect(() => {
+  useEffect((): void => {
     if (isSuccess) {
-      ShowToast({ label: "Task Crated c:", type: "success" });
+      ShowToast({ label: 'Task Crated c:', type: 'success' });
       setTimeout(() => {
         router.push(`/Tasks/${user.username}`);
       }, 1000);
       return;
     }
     if (isError) {
-      ShowToast({ label: `${error} :c`, type: "error" });
+      ShowToast({ label: `${error} :c`, type: 'error' });
     }
   }, [isSuccess]);
   return (
     <>
       <h1 className={userStyles.userGreeting}>
-        Hello{" "}
-        <span className={userStyles.userGreeting__name}>{user.username}</span>!
+        Hello <span className={userStyles.userGreeting__name}>{user.username}</span>!
       </h1>
       <div className={userStyles.userContainer}>
         <div className={userStyles.user}>
@@ -63,7 +62,9 @@ const UserPage: NextPage<{ user: User }> = ({ user }): JSX.Element => {
                 <MdTipsAndUpdates />
                 Update
               </Button>
-              {errorMessage && <ErrorMessenge message={errorMessage} />}
+              {isError && (
+                <ErrorMessenge message={(error as { data: DataResponseMessage }).data.message} />
+              )}
             </div>
           </div>
         </div>
@@ -80,16 +81,16 @@ export async function getServerSideProps(constext: GetServerSidePropsContext) {
   if (user) {
     return {
       props: {
-        user: JSON.parse(JSON.stringify(user))
-      }
+        user: JSON.parse(JSON.stringify(user)),
+      },
     };
   }
 
   return {
     redirect: {
-      destination: "/Login",
-      permanent: false
-    }
+      destination: '/Login',
+      permanent: false,
+    },
   };
 }
 
