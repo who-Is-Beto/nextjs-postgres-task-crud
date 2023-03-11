@@ -6,18 +6,21 @@ import { useCreateUserMutation } from "@/store/services/UsersService";
 import { userFromRequest } from "@/web/tokens";
 import { GetServerSidePropsContext, NextPage } from "next";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Styles from "./Signin.module.css";
 import signinFormFields from "../../utils/signinFormFields";
 import signinValidations from "../../utils/signinValidations";
-import { SerializedError } from "@reduxjs/toolkit";
 import ErrorMessenge from "@/components/Error/ErrorMessage";
 import LoginImage from "../../assets/images/login.svg";
+import { ShowToast } from "@/components/Toast";
+import { useRouter } from "next/router";
+import Loader from "@/components/Loader";
+import { DataResponseMessage } from "shimps";
 
 const SignIn: NextPage = (): JSX.Element => {
-  const [createUser, { error, data }] = useCreateUserMutation();
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [createUser, { error, data, isSuccess, isError, isLoading }] = useCreateUserMutation();
   const refreshServer = useServerRefresher();
+  const router = useRouter();
   const { formErrors, formValues, handleChange, handleSubmit } = useForm(
     {
       email: "",
@@ -29,11 +32,20 @@ const SignIn: NextPage = (): JSX.Element => {
     createUser
   );
 
-  useEffect(() => {
-    if (data) {
-      refreshServer();
+  useEffect((): void => {
+    if (isSuccess) {
+      ShowToast({ label: "Task Crated c:", type: "success" });
+        router.push(`/Tasks`);
+      return;
+    }
+    if (isError) {
+      ShowToast({ label: `${error} :c`, type: "error" });
     }
   }, [data, refreshServer]);
+
+  if(isLoading) {
+    return <Loader type="bars" />
+  }
 
   return (
     <div className={Styles.container}>
@@ -59,7 +71,7 @@ const SignIn: NextPage = (): JSX.Element => {
           <Button type="primary" onClIick={handleSubmit}>
             Create account
           </Button>
-          {errorMessage && <ErrorMessenge message={errorMessage} />}
+          {isError && <ErrorMessenge message={(error as {data: DataResponseMessage}).data.message} />}
         </div>
       </div>
     </div>

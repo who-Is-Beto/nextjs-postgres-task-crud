@@ -23,9 +23,7 @@ const UserNotifications: NextPage<{ user: User }> = ({ user }): JSX.Element => {
   const incomingTasks = data?.tasks?.filter((task) => {
     const incomingDate = IncomingDatesTracked.get(selectedTimeToNotify);
     return (
-      new Date(task.dateToComplete as Date).getTime() - new Date().getTime() <=
-      incomingDate!.getDate()
-    );
+      new Date(task.dateToComplete as Date).valueOf() <= new Date(incomingDate as Date).valueOf());
   });
 
   if (isLoading) {
